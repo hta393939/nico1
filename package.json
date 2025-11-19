@@ -1,7 +1,8 @@
 {
   "name": "nico1",
   "description": "",
-  "private": false,
+  "private": true,
+  "workspaces": ["board"],
   "scripts": {
     
   }
