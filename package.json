@@ -7,6 +7,7 @@
     "start": "akashic sandbox .",
     "start:multi": "akashic serve .",
     "lint": "eslint \"script/**/*.js\" --fix",
+    "re": "akashic scan asset && akashic scan globalScripts && akashic sandbox .",
     "test": "npm run lint"
   },
   "keywords": [],

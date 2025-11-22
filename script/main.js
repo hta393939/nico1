@@ -1,8 +1,29 @@
+//import {Util} from './util';
+const {Util} = require('./util');
+
+const _pad = (v, n) => {
+	const text = `         ${v}`;
+	const len = text.length;
+	return text.slice(len - n, len);
+};
+
 function main(param) {
+    const game = g.game;
+	game.vars.gameState = {score: 0};
+	let time = 60;
+	const limit = param.sessionParameter?.totalTimeLimit;
+	if (limit) {
+		time = limit;
+	}
+	let remainingTime = time - 15;
+
     const scene = new g.Scene({
-        game: g.game,
+        game,
         // このシーンで利用するアセットのIDを列挙し、シーンに通知します
-        assetIds: ["player", "shot", "se"]
+        assetIds: ["player", "shot", "se",
+            "assets/font64.png",
+            "assets/card64.png",
+        ]
     });
     scene.onLoad.add(() => {
         // ここからゲーム内容を記述します
@@ -10,6 +31,32 @@ function main(param) {
         const playerImageAsset = scene.asset.getImageById("player");
         const shotImageAsset = scene.asset.getImageById("shot");
         const seAudioAsset = scene.asset.getAudioById("se");
+
+		const timePane = Util.multi(scene, 200, 50, 48, 48, 48);
+		scene.append(timePane);
+		function updateTimer() {
+			timePane.tag.update(_pad(remainingTime, 3));
+		}
+
+		const scorePane = Util.multi(scene, 50, 50, 32, 32, 32);
+		scene.append(scorePane);
+
+		let score = 0;
+		const timer = scene.setInterval(() => {
+			score += 10;
+			let scoreText = `     ${score}`;
+			let _len = scoreText.length;
+			scorePane.tag.update(`${scoreText.slice(_len - 5, _len)}`);
+
+			remainingTime --;
+			if (remainingTime <= 0) {
+				scene.clearInterval(timer);
+			}
+
+            updateTimer();
+		}, 1000);   
+
+
         // プレイヤーを生成します
         const player = new g.Sprite({
             scene: scene,

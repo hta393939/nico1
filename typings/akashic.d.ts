@@ -1,31 +1,41 @@
 
+/**
+ * 全部が入っている
+ */
+declare namespace g {
 
-namespace g {
-
-declare class Event {
+class Event {
 }
 
-declare class JoinEvent extends Event {
+class JoinEvent extends Event {
 /**
  * 発火元
  */
   player: Player;
 }
 
-declare class Trigger {
+class Trigger {
   constructor();
   /** リスナ追加 */
-  add();
+  add(): any;
   /** リスナ追加 */
-  addOnce();
+  addOnce(): any;
 }
 
-declare class E {
+class E {
   constructor(param: {});
   /** 追加 */
   append(e: E): void;
 }
 
+/**
+ * スプライト
+ */
+class Sprite {
+  constructor() {
+
+  }
+}
 
 /**
  * 1人のプレイヤー
@@ -41,8 +51,12 @@ interface Player {
 
 
 /** シーン */
-declare class Scene {
-  constructor();
+class Scene {
+  /**
+   * 
+   * @param param 
+   */
+  constructor(param);
 
 
   children: E[];
@@ -51,17 +65,49 @@ declare class Scene {
   update: Trigger;
 
   /** オブジェクトを追加する */
-  append(obj);
+  append(obj: any): any;
 }
 
 
-declare class Game {
+class Game {
   /** 自進行フレーム数 */
   age: number;
+
+  /** 幅 */
+  width: number;
+  /** 高さ */
+  height: number;
+
+  /**
+   * シーン追加
+   * @param scene 
+   */
+  pushScene(scene: Scene): any;
 }
 
-
+/** ゲームインスタンス */
 var game: Game;
 
-
 }
+
+
+
+interface AEConfig {
+  /** 30fps */
+  fps: number?;
+  width: number?;
+  height: number?;
+  assets: any;
+}
+
+interface AEInit {
+  canvas: HTMLCanvasElement;
+  configuration: AEConfig;
+  mainFunc: (g, args) => void;
+}
+
+/** 単独html版用 */
+declare namespace AE {
+  function initialize(): any;
+}
+
