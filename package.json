@@ -6,6 +6,7 @@
   "scripts": {
     "start": "akashic sandbox .",
     "start:multi": "akashic serve .",
+    "export-zip": "rimraf game.zip && akashic export zip -o game.zip -s",
     "lint": "eslint \"script/**/*.js\" --fix",
     "re": "akashic scan asset && akashic scan globalScripts && akashic sandbox .",
     "test": "npm run lint"

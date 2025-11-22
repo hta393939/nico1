@@ -76,6 +76,24 @@ class Util {
     return pane;
   }
 
+  static font(scene) {
+    const fontAsset = scene.asset.getImageById('assets/font64.png');
+    const font = new g.BitmapFont({
+      src: fontAsset,
+      map: null,
+      defaultGlyphWidth: 64,
+      defaultGlyphHeight: 64,
+      missingGlyph: null,
+    });
+    const label = new g.Label({
+      font,
+      fontSize: 48,
+    });
+    label.text = '1234ABC';
+    label.invalidate();
+    return label;
+  }
+
 }
 
 module.exports.Util = Util;

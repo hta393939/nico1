@@ -28,6 +28,20 @@ class E {
   append(e: E): void;
 }
 
+class Font {
+
+}
+
+/** ビットマップから作るフォント */
+class BitmapFont extends Font {
+
+}
+
+/** フォントで描くラベル */
+class Label {
+
+}
+
 /**
  * スプライト
  */
