@@ -1,4 +1,3 @@
-//import { PaneParameterObject, SpriteParameterObject } from "@akashic/akashic-engine";
 
 class Util {
   constructor() {
@@ -125,11 +124,11 @@ class Util {
     };
     const useWidth = blockSize - padding.left - padding.right;
     const useHeight = blockSize - padding.top - padding.bottom;
-    for (let i = 0; i < 16; ++i) {
+    for (let i = 0; i < 64; ++i) {
       const code = i + 0x40;
       const one = {
-        x: (i & 3) * blockSize,
-        y: Math.floor(i / 4) * blockSize,
+        x: (i & 7) * blockSize,
+        y: Math.floor(i / 8) * blockSize,
         offsetX: padding.left, offsetY: padding.top,
         width: useWidth, height: useHeight,
         advance: useWidth,
@@ -141,7 +140,7 @@ class Util {
       glyphInfo: {
         map,
         width: useWidth, height: useHeight,
-        missingGlyph: map[0x4c],
+        missingGlyph: map[0x40 + 2 + 8 * 3],
       },
     });
     return font;

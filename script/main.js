@@ -7,6 +7,16 @@ const _pad = (v, n) => {
 	return text.slice(len - n, len);
 };
 
+/**
+ * 
+ * @param {number} x 
+ * @param {number} y 
+ * @returns 
+ */
+const _bc = (x, y) => {
+    return String.fromCodePoint(0x40 + x + y * 8);
+};
+
 function main(param) {
     const game = g.game;
 	game.vars.gameState = {score: 0};
@@ -34,6 +44,8 @@ function main(param) {
 
         const cardFont = Util.card(scene);
 
+
+
         const blockSize = 64;
         for (let i = 1; i <= 4; ++i) {
             for (let j = 0; j < 10; ++j) {
@@ -41,12 +53,38 @@ function main(param) {
                 let y = blockSize * i;
                 const back = new g.Label({
                     x: 0, y: 0, scene,
-                    text: `D`,
+                    text: _bc(0, 1),
                     font: cardFont, fontSize: 64,
                 });
-                const card = new g.E({
-                    x, y, scene,
+                const card = new g.Pane({
+                    x, y, scene, tag: {
+                        sx: 0, sy: 0,
+                        wsx: x, wsy: y,
+                    },
+                    width: blockSize, height: blockSize,
+                    //touchable: true,
                 });
+                /*
+                const obj = card;
+                obj.onPointUp.add((ev) => {
+                    const target = ev.target;
+                    target.x = target.tag.wsx + (ev.point.x - target.tag.sx);
+                    target.y = target.tag.wsy + (ev.point.y - target.tag.sy);
+                    target.modified();
+                });
+                obj.onPointMove.add((ev) => {
+                    const target = ev.target;
+                    target.x = target.tag.wsx + (ev.point.x - target.tag.sx);
+                    target.y = target.tag.wsy + (ev.point.y - target.tag.sy);
+                    target.modified();
+                });
+                obj.onPointDown.add((ev) => {
+                    score += 1;
+                    const target = ev.target;
+                    target.tag.sx = ev.point.x;
+                    target.tag.sy = ev.point.y;
+                }); */
+
                 card.append(back);
                 scene.append(card);
             }
@@ -61,7 +99,7 @@ function main(param) {
 		}
         {
             const label = new g.Label({
-                x: 36 * 5 - 48, y: 4, scene, text: `M`,
+                x: 36 * 5 - 48, y: 4, scene, text: _bc(1, 3),
                 font: cardFont, fontSize: 48,
             });
             scene.append(label);
@@ -75,11 +113,20 @@ function main(param) {
 		scene.append(effPane);
 
 		let score = 0;
-		const timer = scene.setInterval(() => {
-			score += 10;
+        /**
+         * 
+         * @param {number} add 
+         */
+        const _addScore = (add) => {
+            score += add;
 			let scoreText = `     ${score}`;
 			let _len = scoreText.length;
 			scorePane.tag.update(`${scoreText.slice(_len - 5, _len)}`);
+            game.vars.score = score;
+        };
+
+		const timer = scene.setInterval(() => {
+			_addScore(10);
 
 			remainingTime --;
 			if (remainingTime <= 0) {
@@ -108,6 +155,7 @@ function main(param) {
             player.modified();
         });
         // 画面をタッチしたとき、SEを鳴らします
+        /*
         scene.onPointDownCapture.add((event) => {
             seAudioAsset.play();
             // プレイヤーが発射する弾を生成します
@@ -131,13 +179,8 @@ function main(param) {
             });
             scene.append(shot);
 
-            {
-        		const obj = Util.multi(scene, 0, 90, 32, 32, 24);
-                obj.tag.update(`+100`);
-		        scene.append(obj);
-                Util.upeff(scene, obj);
-            }
-        });
+
+        }); */
         scene.append(player);
 
         {
@@ -156,13 +199,33 @@ function main(param) {
         {
             const font = Util.font(scene);
             const label = new g.Label({
-                x: 160, y: 160,
+                x: 64 * 3, y: 64 * 3,
                 scene,
                 text: `123ABCabc`,
                 font,
                 fontSize: 40,
             });
             scene.append(label);
+        }
+
+        {
+            scene.onPointUpCapture.add((event) => {
+
+            });
+            scene.onPointMoveCapture.add((event) => {
+
+            });
+            scene.onPointDownCapture.add((event) => {
+                score += 1;
+
+                { // 演出
+                    const obj = Util.multi(scene, event.point.x, event.point.y, 32, 32, 24);
+                    obj.tag.update(`+100`);
+                    scene.append(obj);
+                    Util.upeff(scene, obj);
+                }
+
+            });
         }
 
         // ここまでゲーム内容を記述します
