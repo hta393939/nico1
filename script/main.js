@@ -99,6 +99,12 @@ function main(param) {
             scene.append(shot);
         });
         scene.append(player);
+
+        {
+            const label = Util.font(scene);
+            scene.append(label);
+        }
+
         // ここまでゲーム内容を記述します
     });
     g.game.pushScene(scene);

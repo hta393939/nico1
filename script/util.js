@@ -76,20 +76,39 @@ class Util {
     return pane;
   }
 
+  /**
+   * フォントとラベルの生成
+   * @param {g.Scene} scene 
+   * @returns 
+   */
   static font(scene) {
     const fontAsset = scene.asset.getImageById('assets/font64.png');
+    const map = {};
+    const blockSize = 64;
+    for (let i = 0; i < 64; ++i) {
+      const code = i + 0x20;
+      const one = {
+        x: (i & 7) * blockSize,
+        y: Math.floor(i / 8) * blockSize,
+        width: blockSize, height: blockSize,
+      };
+      map[code] = one;
+    }
     const font = new g.BitmapFont({
       src: fontAsset,
-      map: null,
-      defaultGlyphWidth: 64,
-      defaultGlyphHeight: 64,
-      missingGlyph: null,
+      glyphInfo: {
+        map,
+        width: blockSize, height: blockSize,
+      },
     });
     const label = new g.Label({
+      x: 10,
+      y: 200,
+      scene,
+      text: `123ABC`,
       font,
       fontSize: 48,
     });
-    label.text = '1234ABC';
     label.invalidate();
     return label;
   }

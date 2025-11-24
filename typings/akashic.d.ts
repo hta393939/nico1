@@ -32,6 +32,20 @@ class Font {
 
 }
 
+/**
+ * フォントマップ
+ */
+interface FontMap {
+  x: number;
+  y: number;
+  /** デフォルトでない場合の幅 */
+  width: number?;
+  height: number?;
+  advanceWidth: number?;
+  offsetX: number?;
+  offsetY: number?;
+}
+
 /** ビットマップから作るフォント */
 class BitmapFont extends Font {
 
