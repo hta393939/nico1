@@ -33,6 +33,7 @@ function main(param) {
         assetIds: ["player", "shot", "se",
             "assets/font64.png",
             "assets/card64.png",
+            "assets/fontred64.png",
         ]
     });
     scene.onLoad.add(() => {
@@ -43,8 +44,6 @@ function main(param) {
         const seAudioAsset = scene.asset.getAudioById("se");
 
         const cardFont = Util.card(scene);
-
-
 
         const blockSize = 64;
         for (let i = 1; i <= 4; ++i) {
@@ -94,7 +93,7 @@ function main(param) {
 
         const fromTop = 4 + 4;
         // 中 48x48 step 36
-		const timePane = Util.multi(scene, 36 * 4, fromTop, 48, 48, 36);
+		const timePane = Util.multi(scene, false, 36 * 4, fromTop, 48, 48, 36);
 		scene.append(timePane);
 		function updateTimer() {
 			timePane.tag.update(_pad(remainingTime, 3));
@@ -107,7 +106,7 @@ function main(param) {
             scene.append(label);
         }
 
-		const scorePane = Util.multi(scene, 36 * 10, fromTop, 48, 48, 36);
+		const scorePane = Util.multi(scene, false, 36 * 10, fromTop, 48, 48, 36);
 		scene.append(scorePane);
 		let score = 0;
         /**
@@ -181,7 +180,7 @@ function main(param) {
         scene.append(player);
 
         {
-            const font = Util.font(scene);
+            const font = Util.font(scene, false);
             const label = new g.Label({
                 x: 10,
                 y: 200,
@@ -194,7 +193,7 @@ function main(param) {
         }
 
         {
-            const font = Util.font(scene);
+            const font = Util.font(scene, true);
             const label = new g.Label({
                 x: 64 * 3, y: 64 * 3,
                 scene,
@@ -216,7 +215,9 @@ function main(param) {
                 score += 1;
 
                 { // 演出
-                    const obj = Util.multi(scene, event.point.x, event.point.y, 32, 32, 24);
+                    const obj = Util.multi(scene,
+                        true,
+                        event.point.x, event.point.y, 32, 32, 24);
                     obj.anchorX = 0.5;
                     obj.anchorY = 1;
                     obj.tag.update(`+100`);

@@ -15,10 +15,11 @@ class Util {
    * @param height 
    * @returns {g.Sprite}
    */
-  static char(scene, code,
+  static char(scene, isRed, code,
     width, height) {
     const blockSize = 64;
-    const fontAsset = scene.asset.getImageById('assets/font64.png');
+    const id = isRed ? 'assets/fontred64.png' : 'assets/font64.png';
+    const fontAsset = scene.asset.getImageById(id);
     const index = code - 0x20;
     /** @type {SpriteParameterObject} */
     const opt = {
@@ -43,6 +44,7 @@ class Util {
    * @returns {g.Pane}
    */
   static multi(scene,
+    isRed,
     inx, iny,
     dw = 64, dh = 64, step = 64) {
     /** @type {PaneParameterObject} */
@@ -63,7 +65,7 @@ class Util {
         let x = 0;
         for (let i = 0; i < _len; ++i) {
             const code = intext.charCodeAt(i);
-            const sp = Util.char(scene, code, dw, dh);
+            const sp = Util.char(scene, isRed, code, dw, dh);
             sp.x = x;
             pane.append(sp);
             x += step;
@@ -78,11 +80,12 @@ class Util {
   /**
    * フォントの生成
    * @param {g.Scene} scene 
-   * @param {number?} advance 元サイズでのadvance
+   * @param {number} advance 元サイズでのadvance
    * @returns 
    */
-  static font(scene, advance) {
-    const fontAsset = scene.asset.getImageById('assets/font64.png');
+  static font(scene, advance, isRed) {
+    const id = isRed ? 'assets/fontred64.png' : 'assets/font64.png';
+    const fontAsset = scene.asset.getImageById(id);
     const map = {};
     const blockSize = 64;
     const pa = 4; // 6pxは削りすぎ
@@ -162,7 +165,7 @@ class Util {
         return;
       }
       obj.tag.count += 1;
-      obj.y -= 2;
+      obj.y -= 1;
       obj.modified();
     });
     return obj;
