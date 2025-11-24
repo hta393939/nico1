@@ -77,20 +77,62 @@ class Util {
   }
 
   /**
-   * フォントとラベルの生成
+   * フォントの生成
    * @param {g.Scene} scene 
+   * @param {number?} advance 元サイズでのadvance
    * @returns 
    */
-  static font(scene) {
+  static font(scene, advance) {
     const fontAsset = scene.asset.getImageById('assets/font64.png');
     const map = {};
     const blockSize = 64;
+    const pa = 4; // 6pxは削りすぎ
+    const padding = {
+      left: pa, top: pa, right: pa, bottom: pa,
+    };
+    const useWidth = blockSize - padding.left - padding.right;
+    const useHeight = blockSize - padding.top - padding.bottom;
     for (let i = 0; i < 64; ++i) {
       const code = i + 0x20;
       const one = {
         x: (i & 7) * blockSize,
         y: Math.floor(i / 8) * blockSize,
-        width: blockSize, height: blockSize,
+        offsetX: padding.left, offsetY: padding.top,
+        width: useWidth, height: useHeight,
+        advance: advance || useWidth,
+      };
+      map[code] = one;
+    }
+    const font = new g.BitmapFont({
+      src: fontAsset,
+      //width: fontAsset.width, height: fontAsset.height,
+      glyphInfo: {
+        map,
+        width: useWidth, height: useHeight,
+        missingGlyph: map[0x40],
+      },
+    });
+    return font;
+  }
+
+  static card(scene) {
+    const fontAsset = scene.asset.getImageById('assets/card64.png');
+    const map = {};
+    const blockSize = 64;
+    const pa = 0;
+    const padding = {
+      left: pa, top: pa, right: pa, bottom: pa,
+    };
+    const useWidth = blockSize - padding.left - padding.right;
+    const useHeight = blockSize - padding.top - padding.bottom;
+    for (let i = 0; i < 16; ++i) {
+      const code = i + 0x40;
+      const one = {
+        x: (i & 3) * blockSize,
+        y: Math.floor(i / 4) * blockSize,
+        offsetX: padding.left, offsetY: padding.top,
+        width: useWidth, height: useHeight,
+        advance: useWidth,
       };
       map[code] = one;
     }
@@ -98,19 +140,33 @@ class Util {
       src: fontAsset,
       glyphInfo: {
         map,
-        width: blockSize, height: blockSize,
+        width: useWidth, height: useHeight,
+        missingGlyph: map[0x4c],
       },
     });
-    const label = new g.Label({
-      x: 10,
-      y: 200,
-      scene,
-      text: `123ABC`,
-      font,
-      fontSize: 48,
+    return font;
+  }
+
+  /**
+   * 未実装。上に上がって消えるエフェクト
+   * @param {*} scene 
+   * @returns 
+   */
+  static upeff(scene, obj) {
+    if (!obj.tag) {
+      obj.tag = {};
+    }
+    obj.tag.count = 0;
+    obj.onUpdate.add(() => {
+      obj.tag.count += 1;
+      obj.y -= 2;
+      obj.modified();
+      obj.tag.count += 1;
+      if (obj.tag.count >= 60) {
+        obj.destroy();
+      }
     });
-    label.invalidate();
-    return label;
+    return obj;
   }
 
 }

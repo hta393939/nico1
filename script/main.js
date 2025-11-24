@@ -32,14 +32,47 @@ function main(param) {
         const shotImageAsset = scene.asset.getImageById("shot");
         const seAudioAsset = scene.asset.getAudioById("se");
 
-		const timePane = Util.multi(scene, 200, 50, 48, 48, 48);
+        const cardFont = Util.card(scene);
+
+        const blockSize = 64;
+        for (let i = 1; i <= 4; ++i) {
+            for (let j = 0; j < 10; ++j) {
+                let x = blockSize * j;
+                let y = blockSize * i;
+                const back = new g.Label({
+                    x: 0, y: 0, scene,
+                    text: `D`,
+                    font: cardFont, fontSize: 64,
+                });
+                const card = new g.E({
+                    x, y, scene,
+                });
+                card.append(back);
+                scene.append(card);
+            }
+        }
+
+
+        // 中 48x48 step 36
+		const timePane = Util.multi(scene, 36 * 4, 4, 48, 48, 36);
 		scene.append(timePane);
 		function updateTimer() {
 			timePane.tag.update(_pad(remainingTime, 3));
 		}
+        {
+            const label = new g.Label({
+                x: 36 * 5 - 48, y: 4, scene, text: `M`,
+                font: cardFont, fontSize: 48,
+            });
+            scene.append(label);
+        }
 
-		const scorePane = Util.multi(scene, 50, 50, 32, 32, 32);
+		const scorePane = Util.multi(scene, 36 * 10, 4, 48, 48, 36);
 		scene.append(scorePane);
+        // 小サイズ32x32のステップ24
+		const effPane = Util.multi(scene, 0, 90, 32, 32, 24);
+        effPane.tag.update(`+100`);
+		scene.append(effPane);
 
 		let score = 0;
 		const timer = scene.setInterval(() => {
@@ -75,7 +108,7 @@ function main(param) {
             player.modified();
         });
         // 画面をタッチしたとき、SEを鳴らします
-        scene.onPointDownCapture.add(() => {
+        scene.onPointDownCapture.add((event) => {
             seAudioAsset.play();
             // プレイヤーが発射する弾を生成します
             const shot = new g.Sprite({
@@ -97,11 +130,38 @@ function main(param) {
                 shot.modified();
             });
             scene.append(shot);
+
+            {
+        		const obj = Util.multi(scene, 0, 90, 32, 32, 24);
+                obj.tag.update(`+100`);
+		        scene.append(obj);
+                Util.upeff(scene, obj);
+            }
         });
         scene.append(player);
 
         {
-            const label = Util.font(scene);
+            const font = Util.font(scene);
+            const label = new g.Label({
+                x: 10,
+                y: 200,
+                scene,
+                text: `123ABCabc`,
+                font,
+                fontSize: 48,
+            });
+            scene.append(label);
+        }
+
+        {
+            const font = Util.font(scene);
+            const label = new g.Label({
+                x: 160, y: 160,
+                scene,
+                text: `123ABCabc`,
+                font,
+                fontSize: 40,
+            });
             scene.append(label);
         }
 
