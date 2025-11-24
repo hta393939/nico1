@@ -147,23 +147,23 @@ class Util {
   }
 
   /**
-   * 未実装。上に上がって消えるエフェクト
-   * @param {*} scene 
+   * 上に上がって消えるエフェクト
+   * @param {g.E} obj 
    * @returns 
    */
-  static upeff(scene, obj) {
+  static upeff(obj) {
     if (!obj.tag) {
       obj.tag = {};
     }
     obj.tag.count = 0;
     obj.onUpdate.add(() => {
+      if (obj.tag.count >= 30) {
+        obj.destroy();
+        return;
+      }
       obj.tag.count += 1;
       obj.y -= 2;
       obj.modified();
-      obj.tag.count += 1;
-      if (obj.tag.count >= 60) {
-        obj.destroy();
-      }
     });
     return obj;
   }

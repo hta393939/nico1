@@ -90,9 +90,11 @@ function main(param) {
             }
         }
 
+        // 小サイズ32x32のステップ24
 
+        const fromTop = 4 + 4;
         // 中 48x48 step 36
-		const timePane = Util.multi(scene, 36 * 4, 4, 48, 48, 36);
+		const timePane = Util.multi(scene, 36 * 4, fromTop, 48, 48, 36);
 		scene.append(timePane);
 		function updateTimer() {
 			timePane.tag.update(_pad(remainingTime, 3));
@@ -105,13 +107,8 @@ function main(param) {
             scene.append(label);
         }
 
-		const scorePane = Util.multi(scene, 36 * 10, 4, 48, 48, 36);
+		const scorePane = Util.multi(scene, 36 * 10, fromTop, 48, 48, 36);
 		scene.append(scorePane);
-        // 小サイズ32x32のステップ24
-		const effPane = Util.multi(scene, 0, 90, 32, 32, 24);
-        effPane.tag.update(`+100`);
-		scene.append(effPane);
-
 		let score = 0;
         /**
          * 
@@ -220,9 +217,11 @@ function main(param) {
 
                 { // 演出
                     const obj = Util.multi(scene, event.point.x, event.point.y, 32, 32, 24);
+                    obj.anchorX = 0.5;
+                    obj.anchorY = 1;
                     obj.tag.update(`+100`);
                     scene.append(obj);
-                    Util.upeff(scene, obj);
+                    Util.upeff(obj);
                 }
 
             });

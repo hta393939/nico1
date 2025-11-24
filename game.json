@@ -45,11 +45,6 @@
 			"width": 256,
 			"height": 256
 		},
-		"card": {
-			"type": "script",
-			"path": "script/card.js",
-			"global": true
-		},
 		"util": {
 			"type": "script",
 			"path": "script/util.js",
