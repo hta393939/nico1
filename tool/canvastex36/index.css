@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+html {
+    background-image: url('./check64.png');
+}
+
+#idcanvas1 {
+    border: solid 1px black;
+}
+
+canvas {
+    border: solid 1px red;
+}
+
