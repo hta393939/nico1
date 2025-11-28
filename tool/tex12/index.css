@@ -1,19 +1,18 @@
-@charset "UTF-8";
 
 body {
-    background-color: rgba(51, 102,51,1);
+  background-color: rgba(51, 102,51,1);
 }
 
 canvas {
-    border: solid 1px black;
+  border: solid 1px black;
 }
 
 .pt {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .tobottom {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
