@@ -1,9 +1,5 @@
-/**
- * @file chip.js
- */
-// MIT License (c) 2018 Usagi
 
-'use strict';
+// MIT License (c) 2018 hta393939
 
 /**
  * 

@@ -1369,7 +1369,9 @@ class Misc {
     drawColor(window.cv02);
     drawColor(window.cv00);
 
-    drawFire();
+    //drawFire();
+
+    drawAdded(window.cv07);
   }
 
   /**
@@ -1405,6 +1407,16 @@ class Misc {
       c.lineWidth = inw;
       c.strokeStyle = inc;
       c.stroke();
+
+      {
+        c.textAlign = 'center';
+        c.textBaseline = 'middle';
+        let px = 200;
+        c.font = `normal ${px}px 'Segoe UI Emoji'`;
+        let y = h * 0.5;
+        y += 8;
+        c.fillText(`\u{1f528}`, w * 0.5, y);
+      }
     }
   }
 
