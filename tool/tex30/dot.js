@@ -1,37 +1,33 @@
-/**
- * @file dot.js
- */
-// MIT License (c) 2018 Usagi
 
-'use strict';
+// MIT License (c) 2018 hta393939
 
 /**
  * 
  * @param {HTMLCanvasElement} cv 
  */
 var drawDot = function(cv) {
-    console.log(`drawDot called`);
-/**
- * 色インデックス
- */
-    const cs = [{c:`rgba(0,0,0,0)`}, {c:`rgba(0,0,0, 1)`}, // 1: 黒
-        {c:`rgb(255,0,0)`}, // 2: 赤
-        {c:`rgb(153,0,0)`}, // 3: 暗い赤
-        {c:`rgb(0,204,0)`}, // 4: 緑
-        {c:`rgb(51,51,255)`}, // 5: 青
-        {c:`rgb(153,255,0)`}, // 6: 黄緑
-        {c:`rgba(255,255,255,1)`}, // 7: 白
-        {c:`rgba(255,255,0,1)`}, // 8: 黄色
-        {c:`rgba(153,153,0,1)`}, // 9: 暗い黄色
-        {c: `rgba(102,102,255, 1)`}, // a: 明るい青
-        {c: `rgba(51,51,255,1)`}, // b: 
-        {c: `rgba(255,153,153,1)`}, // c: 
-        {c: `rgba(128,51,51,1)`}, // d: 
-        {c: `rgba(153,153,153,1)`}, // e: 
-        {c: ``} // f: 
-    ];
+  console.log(`drawDot called`);
+  /**
+   * 色インデックス
+   */
+  const cs = [{c:`rgba(0,0,0,0)`}, {c:`rgba(0,0,0, 1)`}, // 1: 黒
+    {c:`rgb(255,0,0)`}, // 2: 赤
+    {c:`rgb(153,0,0)`}, // 3: 暗い赤
+    {c:`rgb(0,204,0)`}, // 4: 緑
+    {c:`rgb(51,51,255)`}, // 5: 青
+    {c:`rgb(153,255,0)`}, // 6: 黄緑
+    {c:`rgba(255,255,255,1)`}, // 7: 白
+    {c:`rgba(255,255,0,1)`}, // 8: 黄色
+    {c:`rgba(153,153,0,1)`}, // 9: 暗い黄色
+    {c: `rgba(102,102,255, 1)`}, // a: 明るい青
+    {c: `rgba(51,51,255,1)`}, // b: 
+    {c: `rgba(255,153,153,1)`}, // c: 
+    {c: `rgba(128,51,51,1)`}, // d: 
+    {c: `rgba(153,153,153,1)`}, // e: 
+    {c: ``} // f: 
+  ];
 
-    const ds = [
+  const ds = [
 // 草3
 "00000000", // seed
 "00000000",
@@ -41,7 +37,7 @@ var drawDot = function(cv) {
 "001dd100",
 "00011000",
 "00000000",
-    
+  
 "00000000", // seed
 "00000000",
 "00000000",
@@ -60,7 +56,7 @@ var drawDot = function(cv) {
 "00166100",
 "00111100",
 "00000000",
-    
+  
 "00000000", // Ch
 "01111110",
 "01666610",
@@ -97,7 +93,7 @@ var drawDot = function(cv) {
 "001aa100",
 "00111100",
 "00000000",
-    
+  
 "00000000", // Ch
 "00000000",
 "00111100",
@@ -134,7 +130,7 @@ var drawDot = function(cv) {
 "00111100",
 "00000000",
 "00000000",
-    
+  
 "00000000", // Ch
 "00000000",
 "00111100",
@@ -171,7 +167,7 @@ var drawDot = function(cv) {
 "00111110",
 "01100010",
 "00000000",
-    
+  
 "00000000", // 
 "01100010",
 "00111110",
@@ -208,7 +204,7 @@ var drawDot = function(cv) {
 "01888100",
 "01111100",
 "00000000",
-    
+  
 "00000000", // Ch
 "00000000",
 "00000000",
@@ -246,7 +242,7 @@ var drawDot = function(cv) {
 "07111170",
 "07777770",
 "00000000",
-    
+  
 "00000000", // 1
 "07777770",
 "07111170",
@@ -264,7 +260,7 @@ var drawDot = function(cv) {
 "07711170",
 "00777770",
 "00000000",
-    
+  
 "00000000", // 2
 "07777700",
 "07111700",
@@ -282,7 +278,7 @@ var drawDot = function(cv) {
 "07711170",
 "00777770",
 "00000000",
-    
+  
 "00000000", // 3
 "00000000",
 "00777000",
@@ -291,42 +287,42 @@ var drawDot = function(cv) {
 "07711170",
 "00777770",
 "00000000",
-    ];
+  ];
 
-    const c = cv.getContext('2d');
-    let x = 0;
-    let y = 0;
-    let mx = 0;
-    let my = 0;
-    let s = 1;
-    let lineindex = 0;
-    while(lineindex < ds.length) {
-            const line = ds[lineindex];
+  const c = cv.getContext('2d');
+  let x = 0;
+  let y = 0;
+  let mx = 0;
+  let my = 0;
+  let s = 1;
+  let lineindex = 0;
+  while(lineindex < ds.length) {
+      const line = ds[lineindex];
 
-            let midx = 0x62 + Math.floor(lineindex/8);
-            mx = midx % 16;
-            my = Math.floor(midx / 16);
-            for (var k = 0; k < 8; ++k) {
-                x = mx * 8 + k * s;
-                y = my * 8 + (lineindex % 8) * s;
+      let midx = 0x62 + Math.floor(lineindex/8);
+      mx = midx % 16;
+      my = Math.floor(midx / 16);
+      for (var k = 0; k < 8; ++k) {
+        x = mx * 8 + k * s;
+        y = my * 8 + (lineindex % 8) * s;
 
-                const pal = parseInt(line.substr(k,1), 16);
-                //console.log(``, pal, line, k, cs[pal]);
+        const pal = parseInt(line.substr(k,1), 16);
+        //console.log(``, pal, line, k, cs[pal]);
 
-                c.fillStyle = cs[pal].c;
-                c.fillRect(x,y, 1,1);
-            }
-            lineindex ++;
-    }
+        c.fillStyle = cs[pal].c;
+        c.fillRect(x,y, 1,1);
+      }
+      lineindex ++;
+  }
 
-    c.fillStyle = `rgba(51,153,255,0.7)`;
-    c.fillRect(6*8,0, 8*8,8*4);
-    {
-        y = 8*2;
-        c.fillStyle = `rgba(255,255,255,1)`;
-        [[8*8+2,y+2,1,1],[8*8+5,y+6,2,1],
-            [8*9+2,y+2,2,1],[8*9+6,y+6,1,1]].forEach(v=>{
-            c.fillRect(v[0],v[1], v[2],v[3]);
-        });
-    }
+  c.fillStyle = `rgba(51,153,255,0.7)`;
+  c.fillRect(6*8,0, 8*8,8*4);
+  {
+    y = 8*2;
+    c.fillStyle = `rgba(255,255,255,1)`;
+    [[8*8+2,y+2,1,1],[8*8+5,y+6,2,1],
+      [8*9+2,y+2,2,1],[8*9+6,y+6,1,1]].forEach(v=>{
+      c.fillRect(v[0],v[1], v[2],v[3]);
+    });
+  }
 };
