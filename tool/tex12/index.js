@@ -1163,12 +1163,17 @@ c.fill();
       c.lineTo(x + q, y + q*3);
 */
       c.moveTo(x + q*2, y + q);
-      c.arcTo(x + q*3, y + q, x + q*3, y + q*2, q); // 右上
-      c.arcTo(x + q*3, y + q*3, x + q*2, y+q*3, q); // 右下
-      c.arcTo(x + q, y + q*3, x + q, y + q*2, q); // 左下
-      c.arcTo(x + q, y + q, x + q*2, y + q, q);
+      c.arcTo(x + q*3, y + q, x + q*3, y + q*2, q * 0.75); // 右上
+      c.arcTo(x + q*3, y + q*3, x + q*2, y+q*3, q * 0.75); // 右下
+      c.arcTo(x + q, y + q*3, x + q, y + q*2, q * 0.75); // 左下
+      c.arcTo(x + q, y + q, x + q*2, y + q, q * 0.75);
+      c.lineTo(x + q * 2, y + q);
 
-      c.closePath();
+      const ad1 = q * 0.5;
+      c.moveTo(x + q * 3 - ad1, y + q * 1 + ad1);
+      c.lineTo(x + q * 1 + ad1, y + q * 3 - ad1);
+
+      //c.closePath();
 
       c.lineWidth = out;
       c.strokeStyle = outc;
@@ -1234,7 +1239,7 @@ c.fill();
       c.arcTo(x+q*3,y+q*2, x+q*3,y+q*2.5, q*0.5);
       c.arcTo(x+q*3,y+q*3, x+q*2.5,y+q*3, q*0.5);
       c.arcTo(x + q * 1, y + q*3, x+q,y+q*2.5, q*0.5);
-      c.moveTo(x + q * 2, y + q * 2); // ここ
+      c.moveTo(x + q * 2.25, y + q * 2); // ここ 2.0
       c.lineTo(x + q * 2.5, y + q * 2);
 
         c.lineWidth = out;
@@ -1857,14 +1862,15 @@ c.fill();
     { // S
       x = side * 3;
       y = side * 6;
+      const ad2 = 0.25 * q;
 
       c.beginPath();
-      c.moveTo(x + q*3, y + q); // 右上
+      c.moveTo(x + q*3 - ad2, y + q); // 右上
       c.arcTo(x + q, y + q, x+q,y+q*2, q*0.5);
       c.arcTo(x + q, y + q * 2, x+q*2,y+q*2, q*0.5);
       c.arcTo(x + q*3, y + q*2, x+q*3,y+q*3, q*0.5);
       c.arcTo(x + q*3, y + q*3, x+q*2,y+q*3, q*0.5);
-      c.lineTo(x + q, y + q* 3);
+      c.lineTo(x + q + ad2, y + q* 3);
       c.lineWidth = out;
       c.strokeStyle = outc;
       c.stroke();
@@ -2095,9 +2101,6 @@ c.fill();
    */
   init() {
     console.log(`init called`);
-    this.drawNum(cv00, { width: 256, height: 256,
-      side: 64, out: 14, inw: 8
-    });
 
     drawCard(cv01);
     drawCard2(cv01);
@@ -2107,10 +2110,6 @@ c.fill();
 
     this.drawChar(cv05, true, true);
     this.drawIcon(cv06);
-
-    this.drawNum(cv07, { width: 128, height: 128,
-      side: 32, out: 7, inw: 4
-    });
 
     drawCard(window.cv11, 32);
     drawCard2(window.cv11, 32);
