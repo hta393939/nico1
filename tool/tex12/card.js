@@ -300,33 +300,54 @@ c.fill();
       }
     }
 
-    // タッチエフェクト
-    {
+    { // タッチエフェクト
+      const cols = [`rgb(255,0,0)`, `rgb(0,255,0)`, `rgb(0,0,255)`, `rgb(255,255,0)`];
+      const objs = [
+        {topo:  0, ang: 0}, {topo: 32, ang: 32},
+        {topo: 16, ang: 16}, {topo: 48, ang: 48},
+        {topo: 56, ang: 56}, {topo:  8, ang: 8},
+        {topo: 40, ang: 40}, {topo: 24, ang: 24},
+      ];
+      c.lineJoin = 'round';
+      c.lineCap = 'round';
       for (let i = 0; i < 8; ++i) {
-        const ftx = i * w;
-        const fty = 7 * h;
+        const ftx = w * i;
+        const fty = h * 4;
         const cx = ftx + q * 2;
         const cy = fty + q * 2;
-        for (let j = 0; j < 6; ++j) {
-          let r1 = 4;
+        for (let j = 0; j < 8; ++j) {
+          let x = cx;
+          let y = cy;
+          let topo = objs[j].topo;
+          topo = (topo <= 8) ? 56 : topo;
+          topo = topo / 64;
+          const ang = ((objs[j].ang + 2) & 63) / 64 * 2 * Math.PI;
+          const len = topo * 24;
+          x += Math.cos(ang) * len;
+          y += Math.sin(ang) * len;
+
+          let r1 = 6;
           {
             c.beginPath();
-            c.moveTo(cx + 0, cy - r1);
-            c.lineTo(cx + r1, cy + 0);
-            c.lineTo(cx + 0, cy + r1);
-            c.lineTo(cx - r1, cy + 0);
+            c.moveTo(x + 0, y - r1);
+            c.lineTo(x + r1, y + 0);
+            c.lineTo(x + 0, y + r1);
+            c.lineTo(x - r1, y + 0);
             c.closePath();
             c.stroke();
           }
           c.strokeStyle = `rgb(255,255,255)`;
-          c.lineWidth = 8;
+          c.lineWidth = 4;
           c.stroke();
 
-          c.strokeStyle = `rgb(255,0,0)`;
-          c.lineWidth = 6;
-          c.stroke();
-          c.fillStyle = 'rgb(255,255,255)';
+          c.fillStyle = cols[j&3];
           c.fill();
+
+          c.strokeStyle = `rgb(0,0,0)`;
+          c.lineWidth = 2;
+          c.stroke();
+
+          objs[j].topo = (objs[j].topo + 8) & 63;
         }
       }
     }
