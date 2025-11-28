@@ -202,6 +202,101 @@ class Util {
     return obj;
   }
 
+  /**
+   * 
+   * @param {number[]} pts 
+   * @returns 
+   */
+  static infer(pts) {
+    const ret = {circle: null, line: null};
+    const num = pts.length;
+    if (num === 0) {
+      return ret;
+    }
+    if (num === 1) {
+      ret.circle = {cx: pts[0], cy: pts[1], rr: 0};
+      return ret;
+    }
+
+    let xsum = 0;
+    let ysum = 0;
+    for (const pt of pts) {
+      xsum += pt[0];
+      ysum += pt[1];
+    }
+    const k = 1 / num;
+    const xyavg = [xsum * k, ysum * k];
+    let x2sum = 0;
+    let y2sum = 0;
+    let xysum = 0;
+    let sums = [0, 0, 0];
+    for (const pt of pts) {
+      let x = pt[0] - xyavg[0];
+      let y = pt[1] - xyavg[1];
+
+      let x2 = x * x;
+      let y2 = y * y;
+
+      x2sum += x2;
+      y2sum += y2;
+      xysum += x * y;
+
+      const x2y2 = x2 + y2;
+      sums[0] += x * x2y2;
+      sums[1] += y * x2y2;
+      sums[2] += x2y2;
+    }
+
+    { // 直線の推定
+      let b2 = - x2sum - y2sum;
+      let c2 = x2sum * y2sum - xysum ** 2;
+      let decide = b2 * b2 - c2 * 4;
+      if (decide >= 0) {
+        const zerop = (-b2 + Math.sqrt(decide)) * 0.5;
+        if (zerop > 0) {
+          let ex = - xysum;
+          let ey = x2sum - zerop;
+          let len = Math.sqrt(ex ** 2 + ey ** 2);
+          const k = (len >= 0) ? 1 / len : 0;
+          ret.line = {
+            cx: xyavg[0], cy: xyavg[1],
+            dx: ex * k, dy: ey * k,
+          };
+        }
+      }
+    }
+
+    const det = x2sum * y2sum - xysum ** 2;
+    if (det === 0) {
+      return ret;
+    }
+
+    let a1 = ( y2sum * sums[0] - xysum * sums[1]) / det;
+    let b1 = (-xysum * sums[0] + x2sum * sums[1]) / det;
+    let c1 = sums[2] / num;
+
+    ret.circle = {
+      cx: a1 * 0.5 + xyavg[0],
+      cy: b1 * 0.5 + xyavg[1],
+      rr: Math.sqrt(a1 ** 2 + b1 ** 2 + c1),
+    };
+    return ret;
+  }
+
+  static testInfer() {
+    const pts = [];
+    const cx = -2;
+    const cy = 100;
+    let rr = 10.0;
+    for (let i = 0; i < 60; ++i) {
+      let x = cx + Math.cos(i) * rr + Math.random();
+      let y = cy + Math.sin(i) * rr + Math.random();
+      pts.push([x, y]);
+    }
+    const result = Util.infer(pts);
+    console.log('testInfer', result);
+  }
+
 }
 
 module.exports.Util = Util;
