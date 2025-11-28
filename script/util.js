@@ -149,6 +149,37 @@ class Util {
     return font;
   }
 
+  /** @param {g.Scene} scene */
+  static emptytouch(scene, inx, iny) {
+    const fontAsset = scene.asset.getImageById('assets/card64.png');
+    const blockSize = 64;
+    const param = {
+      scene,
+      src: fontAsset,
+      srcWidth: blockSize,
+      srcHeight: blockSize,
+      anchorX: 0.5, anchorY: 0.5,
+      width: blockSize, height: blockSize,
+      x: inx, y: iny,
+      frames: [],
+    };
+    for (let i = 0; i < 8; ++i) {
+      param.frames.push(i + 32);
+    }
+    const obj = new g.FrameSprite(param);
+
+    obj.tag = {count: 0};
+    obj.onUpdate.add(() => {
+      if (obj.tag.count >= 15) {
+        obj.destroy();
+        return;
+      }
+      obj.tag.count += 1;
+    });
+    obj.start();
+    return obj; 
+  }
+
   /**
    * 上に上がって消えるエフェクト
    * @param {g.E} obj 

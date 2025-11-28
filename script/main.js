@@ -224,6 +224,12 @@ function main(param) {
                     scene.append(obj);
                     Util.upeff(obj);
                 }
+                {
+                    const obj = Util.emptytouch(scene,
+                        event.point.x,
+                        event.point.y);
+                    scene.append(obj);
+                }
 
             });
         }
