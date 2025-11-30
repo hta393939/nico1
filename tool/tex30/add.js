@@ -17,8 +17,8 @@ var drawAdded = (canvas) => {
 
   let x = 0;
   let y = 0;
-  let hx = q * 0.25;
-  let club = q * 0.75;
+  let hx = q * 13 / 32;
+  let club = q - hx;
   const _suit = (i) => {
     switch (i) {
     case 0: // スペード
