@@ -18,37 +18,42 @@ var drawAdded = (canvas) => {
   let x = 0;
   let y = 0;
   let hx = q * 0.25;
+  let club = q * 0.75;
   const _suit = (i) => {
     switch (i) {
     case 0: // スペード
       c.moveTo(x + q * 2, y + q); // 上
       c.bezierCurveTo(x + q * 3, y + q * 1.5,
-        x + q * 3, y + q * 1.5,
+        x + q * 3, y + q * 1.75,
         x + q * 3, y + q * 2, // 右
       );
-      c.bezierCurveTo(x + q * 3, y + q * 3,
-        x + q * 2, y + q * 3,
-        x + q * 2, y + q * 2, // 中
+      c.bezierCurveTo(x + q * 3, y + q * 2.75, // D
+        x + q * 2, y + q * 2.75, // D
+        x + q * 2, y + q * 1.5, // 中
       );
-      c.bezierCurveTo(x + q * 3, y + q * 3,
-        x + q, y + q * 3,
+      c.bezierCurveTo(x + q * 2, y + q * 2.75, // D
+        x + q, y + q * 2.75, // D
         x + q, y + q * 2, // 左
       );
-      c.bezierCurveTo(x + q * 3, y + q * 3,
-        x + q * 2, y + q,
+      c.bezierCurveTo(x + q * 1, y + q * 1.75,
+        x + q * 1, y + q * 1.5,
         x + q * 2, y + q, // 上
       );
 
+      
       c.moveTo(x + q * 1.5, y + q * 3); // 左
-      c.bezierCurveTo(x + q, y + q,
-        x + q * 2, y + q * 2.5,
+      c.bezierCurveTo(
+        x + q * 1.75, y + q * 2.75, // 下
+        x + q * 2, y + q * 2.25, // 上
         x + q * 2, y + q * 2,
       ); // 中上
-      c.bezierCurveTo(x + q * 2, y + q * 2.5,
-        x + q * 2, y + q * 2,
+      c.bezierCurveTo(
+        x + q * 2, y + q * 2.25, // 上
+        x + q * 2.25, y + q * 2.75, // 下
         x + q * 2.5, y + q * 3,
-      );
+      ); // 右下
       c.closePath();
+      
       c.fillStyle = 'rgb(0, 0, 0)';
       break;
     case 1: // ハート
@@ -78,27 +83,37 @@ var drawAdded = (canvas) => {
       c.lineTo(x + q * 3, y + q * 2);
       c.lineTo(x + q * 2, y + q * 3);
       c.lineTo(x + q, y + q * 2);
-      c.fillStyle = 'rgb(255, 0, 0)';
+      c.fillStyle = 'rgb(0, 255, 255)';
       break;
     case 3: // クラブ
-      c.ellipse(x + q * 2, y + q,
+      c.ellipse(x + q * 2, y + q * 2 - club,
+        hx, hx, 0, 0, Math.PI * 2
+      ); // 上
+
+      c.moveTo(x + q * 2 + club + hx, y + q * 2);
+      c.ellipse(x + q * 2 + club, y + q * 2,
         hx, hx, 0, 0, Math.PI * 2
       );
 
-      c.moveTo(x + q * 3 + hx, y + q * 2);
-      c.ellipse(x + q * 3, y + q * 2,
+      c.moveTo(x + q * 2 - club + hx, y + q * 2);
+      c.ellipse(x + q * 2 - club, y + q * 2,
         hx, hx, 0, 0, Math.PI * 2
       );
 
-      c.moveTo(x + q + hx, y + q * 2);
-      c.ellipse(x + q, y + q * 2,
-        hx, hx, 0, 0, Math.PI * 2
-      );
-      c.moveTo(x + q * 2.5, y + q * 3);
-      c.lineTo(x + q * 2, y + q * 2);
-      c.lineTo(x + q * 1.5, y + q * 3);
+      c.moveTo(x + q * 1.5, y + q * 3); // 左
+      c.bezierCurveTo(
+        x + q * 1.75, y + q * 2.75, // 下
+        x + q * 2, y + q * 2.25, // 上
+        x + q * 2, y + q * 2,
+      ); // 中上
+      c.bezierCurveTo(
+        x + q * 2, y + q * 2.25, // 上
+        x + q * 2.25, y + q * 2.75, // 下
+        x + q * 2.5, y + q * 3,
+      ); // 右下
       c.closePath();
-      c.fillStyle = 'rgb(0, 0, 0)';
+
+      c.fillStyle = 'rgb(0, 255, 0)';
       break;
     default:
       c.moveTo(x + q, y + q);
@@ -116,7 +131,9 @@ var drawAdded = (canvas) => {
       y = i * blockSize;
 
       c.beginPath();
-      _suit(i);
+      if (i === 0) {
+        _suit(j);
+      }
       c.closePath();
 
       c.lineWidth = 8;
