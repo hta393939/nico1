@@ -8,7 +8,7 @@
 var drawFire = function() {
   console.log(`drawFire called`);
 
-// コピーして拡大
+  // コピーして拡大
   const orgw = window.imgfire.naturalWidth;
   const orgh = window.imgfire.naturalHeight;
   const corg = window.cvorg.getContext('2d');

@@ -656,13 +656,20 @@ c.fill();
    * @param {boolean} isouter 外側
    * @param {boolean} isinner 内側
    */
-  drawChar(cv, isouter, isinner) {
+  drawChar(cv, isouter, isinner, inside = 64) {
+    console.log('drawChar', inside);
+    let w = inside * 8;
+    let h = inside * 8;
+    let scale = inside / 64;
+
+    cv.width = w;
+    cv.height = h;
     const c = cv.getContext('2d');
-    cv.width = 512;
-    cv.height = 512;
+    c.scale(scale, scale);
 
     let x = 0;
     let y = 0;
+    /** スケールで変更するのでここは64固定 */
     const side = 64;
     const q = side / 4;
 
@@ -2093,6 +2100,7 @@ c.fill();
       c.stroke();
     }
 
+    c.resetTransform();
   } // drawChar
 
 
@@ -2111,8 +2119,18 @@ c.fill();
     this.drawChar(cv05, true, true);
     this.drawIcon(cv06);
 
+    {
+      this.drawChar(cv23, true, true, 48);
+    }
+
+
     drawCard(window.cv11, 32);
     drawCard2(window.cv11, 32);
+    
+    {
+      drawCard(window.cv22, 48);
+      drawCard2(window.cv22, 48);
+    }
   }
 
   /**
