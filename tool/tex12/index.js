@@ -2123,9 +2123,11 @@ c.fill();
       this.drawChar(cv23, true, true, 48);
     }
 
-
-    drawCard(window.cv11, 32);
-    drawCard2(window.cv11, 32);
+    {
+      drawCard(window.cv11, 32);
+      drawCard2(window.cv11, 32);
+      this.drawChar(window.cv13, true, true, 32);
+    }
     
     {
       drawCard(window.cv22, 48);

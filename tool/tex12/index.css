@@ -16,3 +16,7 @@ canvas {
   flex-direction: column;
 }
 
+.toright {
+  display: flex;
+  flex-direction: row;
+}

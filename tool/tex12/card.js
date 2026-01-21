@@ -11,16 +11,22 @@ var drawCard = (cv, side = 64) => {
     let q = 0;
     const w = 64; // 1つのサイズ
     const h = 64;
-    cv.width = w * 8;
-    cv.height = h * 8;
+    cv.width = side * 8;
+    cv.height = side * 8;
     const c = cv.getContext('2d');
     const rate = side / 64;
     if (side !== 64) {
       c.scale(rate, rate);
     }
     {
+      // TODO: 補正
       let outw = 7;
       let inw = 4;
+      if (side <= 48) {
+        outw = 9;
+        inw = 5;
+      }
+
       c.lineCap = `round`;
       c.lineJoin = `round`;
 
@@ -352,29 +358,35 @@ c.fill();
       }
     }
 
+    c.resetTransform();
   };
 
 
 /**
  * 8x8 のアイコン集
  * @param {HTMLCanvasElement} cv 
- * @param {number} [side=64] 一辺のピクセル数
+ * @param {number} [inside=64] 一辺のピクセル数
  */
-  var drawCard2 = (cv, side = 64) => {
-    console.log(`drawCard2 called`, side);
+  var drawCard2 = (cv, inside = 64) => {
+    console.log(`drawCard2 called`, inside);
+
+    let side = inside;
 
     let x = 0;
     let y = 0;
-    const w = 64; // 1つのサイズ
+    const w = 64; // 1つのサイズ。ここは変更しない
     const h = 64;
     let q = w / 4;
 
     const c = cv.getContext('2d');
     const rate = side / 64;
-    c.scale(rate, rate);
+    c.scale(rate, rate); // これで変化させる
     {
+      // NOTE: 
       let outw = 7;
       let inw = 4;
+
+
       c.lineCap = `round`;
       c.lineJoin = `round`;
 
@@ -633,5 +645,5 @@ c.fill();
       });
     }
 
-
+    c.resetTransform();
   };
