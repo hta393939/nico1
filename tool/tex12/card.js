@@ -26,6 +26,10 @@ var drawCard = (cv, side = 64) => {
         outw = 9;
         inw = 5;
       }
+      if (side <= 32) {
+        outw = 14;
+        inw = 8;
+      }
 
       c.lineCap = `round`;
       c.lineJoin = `round`;
@@ -333,6 +337,7 @@ c.fill();
           y += Math.sin(ang) * len;
 
           let r1 = 6;
+          c.lineWidth = 4;
           {
             c.beginPath();
             c.moveTo(x + 0, y - r1);
@@ -343,7 +348,7 @@ c.fill();
             c.stroke();
           }
           c.strokeStyle = `rgb(255,255,255)`;
-          c.lineWidth = 4;
+
           c.stroke();
 
           c.fillStyle = cols[j&3];

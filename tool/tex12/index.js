@@ -10,288 +10,6 @@ class Misc {
   }
 
   /**
-   * カード描画したい 4つ
-   * @param {HTMLCanvasElement} cv 
-   */
-  /*
-  drawCard(cv) {
-    const _this = this;
-    let x = 0;
-    let y = 0;
-    let q = 0;
-    const w = 64; // 1つのサイズ
-    const h = 64;
-    cv.width = w * 4;
-    cv.height = h * 4;
-    const c = cv.getContext('2d');
-    {
-      let outw = 7;
-      let inw = 4;
-      c.lineCap = `round`;
-      c.lineJoin = `round`;
-
-      c.fillStyle = `rgb(0,102,0)`;
-      //c.fillRect(0,0, 4096,4096);
-
-      [0,1,2,3,4,5,6,7,
-        8,9,10,11,12,13,14,15].forEach(k=>{
-        const ftx = w * (k % 4);
-        const fty = h * Math.floor(k/4);
-        x = ftx;
-        y = fty;
-        let l = ftx;
-        let r = ftx;
-        let t = fty;
-        let b = fty;
-
-        let margin = outw;
-        x += w / 2;
-        y += h / 2;
-        l += margin;
-        r += w - margin;
-        t += margin;
-        b += h - margin;
-
-        c.beginPath();
-        c.moveTo(x,t);
-        c.arcTo(r,t, r,y, outw); // 右上
-        c.arcTo(r,b, x,b, outw); // 右下
-        c.arcTo(l,b, l,y, outw);
-        c.arcTo(l,t, x,t, outw);
-        c.closePath();
-
-        if (k === 0) { // セレクト
-          c.lineWidth = outw + 2;
-          c.strokeStyle = `rgba(255,51,51,1)`;
-          c.stroke();
-  
-          c.lineWidth = inw;
-          c.strokeStyle = `rgba(0,0,0,1)`;
-          //c.stroke();
-        } else if (k === 1) { // 文字面
-            c.lineWidth = outw;
-            c.strokeStyle = `rgba(255,255,255,1)`;
-            c.stroke();
-  
-            c.lineWidth = inw;
-            c.strokeStyle = `rgba(0,0,0,1)`;
-            c.stroke();
-    
-            c.fillStyle = `rgba(255,255,255, 1)`;
-            c.fill();    
-  
-        } else if (k === 2 || k === 3) {
-if (k === 3) {
-c.lineWidth = outw;
-c.strokeStyle = `rgba(255,255,255,1)`;
-c.stroke();
-
-c.lineWidth = inw;
-c.strokeStyle = `rgba(0,0,0,1)`;
-c.stroke();
-// 背景
-c.fillStyle = `rgba(0,204,0, 1)`;
-c.fill();
-}
-          x = ftx + w / 4 + 4;
-          y = fty + w / 4 - 12;
-          q = w / 4 / 2;
-          c.beginPath();
-
-          { // s
-            c.moveTo(x+q*2,y+q*2);
-            c.lineTo(x+q,y+q*2);
-            c.lineTo(x+q,y+q*2.5);
-            c.lineTo(x+q*2,y+q*2.5);
-            c.lineTo(x+q*2,y+q*3);
-            c.lineTo(x+q,y+q*3);
-          }
-          const offset = 4;
-          for (let i = 0; i < 4; i+= 2) {
-            x = ftx + i * w / 4 + 4;
-            if (i === 0) {
-              x += offset;
-            } else {
-              x -= offset;
-            }
-            c.moveTo(x+q,y+q*1.25);
-            c.lineTo(x+q,y+q*3);
-            c.moveTo(x+q,y+q*2.5);
-            c.lineTo(x+q*2,y+q*2);
-            c.moveTo(x+q,y+q*2.5);
-            c.lineTo(x+q*2,y+q*3);
-          }
-
-          c.lineWidth = outw - 1;
-          c.strokeStyle = `rgba(0,0,0,1)`;
-          c.stroke();
-          c.lineWidth = inw - 2;
-          c.strokeStyle = `rgba(255,255,255, 1)`;
-          c.stroke();
-
-        } else if (k === 4) { // カバー
-          c.lineWidth = outw;
-          c.strokeStyle = `rgba(255,255,255,1)`;
-          c.stroke();
-  
-          c.lineWidth = inw;
-          c.strokeStyle = `rgba(0,0,0,1)`;
-          c.stroke();
-
-          c.fillStyle = `rgba(51,51,255, 1)`;
-          c.fill();
-
-
-        } else if (k === 5) { // カバー2
-          c.lineWidth = outw;
-          c.strokeStyle = `rgba(255,255,255,1)`;
-          c.stroke();
-  
-          c.lineWidth = inw;
-          c.strokeStyle = `rgba(0,0,0,1)`;
-          c.stroke();
-
-          c.fillStyle = `rgba(255,153,0, 1)`;
-          c.fill();
-        } else if (k === 6) { // カバーカバーカバー
-          c.lineWidth = outw;
-          c.strokeStyle = `rgba(255,255,255,1)`;
-          c.stroke();
-
-          c.lineWidth = inw;
-          c.strokeStyle = `rgba(0,0,0,1)`;
-          c.stroke();
-
-          c.fillStyle = `rgba(0,0,0, 1)`;
-          c.fill();
-        } else if (k === 7) { // カバー4
-          c.fillStyle = `rgba(255,255,255, 1)`;
-          c.fill();
-        } else if (k === 12) { // 時計
-          x = ftx;
-          y = fty;
-          let r2 = w / 2;
-          q = w / 4 + 8;
-          c.beginPath();
-          c.ellipse(x+r2,y+r2, q,q, 0, 0,Math.PI*2-0.1);
-          c.lineWidth = outw;
-          c.strokeStyle = `rgba(255,255,255,1)`;
-          c.stroke();
-
-          c.lineWidth = inw;
-          c.strokeStyle = `rgba(0,0,0,1)`;
-          c.stroke();
-          c.fillStyle = `rgba(255,255,255, 1)`;
-          c.fill();
-
-          q = w / 4;
-          c.beginPath();
-          c.moveTo(x+q*2,y+q*1);
-          c.lineTo(x+q*2,y+q*2);
-          c.lineTo(x+q*2.75,y+q*2);
-
-          c.lineWidth = outw + 2;
-          c.strokeStyle = `rgba(255,255,255,1)`;
-          c.stroke();
-
-          c.lineWidth = inw + 2;
-          c.strokeStyle = `rgba(0,0,0,1)`;
-          c.stroke();
-
-        } else if (k === 13) {
-          x = ftx;
-          y = fty;
-          let r2 = w / 2;
-          let r1 = w / 4 + 8;
-          q = w / 4;
-          c.beginPath();
-          let cx = x + w / 2;
-          let cy = y + w / 2;
-
-          c.moveTo(x+r2+r1,y+r2-r1);
-//                    c.lineTo(x+r2+r1*0.5,y+r2);
-          c.bezierCurveTo(x+r2+r1,y+r2-q, x+r2+r1,y+r2-q, x+r2+r1*0.5,y+r2);
-//                    c.lineTo(x+r2+r1,y+r2+r1);
-//                    c.lineTo(x+r2-r1,y+r2+r1);
-          c.bezierCurveTo(cx+r1,y+r2+q, x+r2+r1,y+r2+q, x+r2+r1,y+r2+r1);
-          c.lineTo(cx-r1,cy+r1);
-          c.bezierCurveTo(cx - r1,cy + q, cx - r1,cy + q, cx - r1*0.5,cy);
-          c.bezierCurveTo(cx - r1, cy - q, cx - r1, cy - q, cx - r1, cy - r1);
-//                    c.lineTo(x+r2-r1,y+r2-r1);
-          c.closePath();
-
-          c.lineWidth = outw;
-          c.strokeStyle = `rgba(255,255,255,1)`;
-          c.stroke();
-
-          c.lineWidth = inw;
-          c.strokeStyle = `rgba(0,0,0,1)`;
-          c.stroke();
-          c.fillStyle = `rgba(255,255,255, 1)`;
-          c.fill();
-
-          q = w / 4;
-          c.beginPath();
-          c.moveTo(x+q*2,y+q*3)
-          c.lineTo(x+q*2,y+q*2);
-          c.lineTo(x+q*1.25,y+q*1.25);
-          c.lineTo(x+q*2.75,y+q*1.25);
-          c.lineTo(x+q*2,y+q*2);
-
-          c.lineWidth = outw + 2;
-          c.strokeStyle = `rgba(255,255,255,1)`;
-          c.stroke();
-
-          c.lineWidth = inw + 2;
-          c.strokeStyle = `rgba(0,51,255,1)`;
-          c.stroke();
-          c.fillStyle = `rgba(0,51,255,1)`;
-          c.fill();
-        } else if (k === 10 || k === 11 || k === 14 || k === 15) {
-          if (k === 10 || k === 11) {
-            c.lineWidth = outw;
-            c.strokeStyle = `rgba(255,255,255,1)`;
-            c.stroke();
-    
-            c.lineWidth = inw;
-            c.strokeStyle = `rgba(0,0,0,1)`;
-            c.stroke();
-
-            c.fillStyle = `rgba(0,51,255, 1)`;
-            if (k === 11) {
-              c.fillStyle = `rgba(255,255,255, 1)`;
-            }
-            c.fill();
-          }
-
-          c.lineWidth = outw - 1;
-          let rr = 20;
-          let cx = ftx + 32;
-          let cy = fty + 32 + 1;
-          c.beginPath();
-          c.moveTo(cx, cy - rr);
-          for (let i = 1; i < 5; i++) {
-            let ang = Math.PI * 2 * i * 4 / 10;
-            c.lineTo(Math.sin(ang) * rr + cx,
-              cy - rr * Math.cos(ang));
-          }
-          c.closePath();
-
-          c.strokeStyle = `rgba(0,0,0,1)`; 
-          c.stroke();
-
-          c.fillStyle = `rgba(255,238,0, 1)`;
-          c.fill();
-        }
-
-      });
-    }
-
-
-  }
-*/
-
-  /**
    * 
    * @param {HTMLCanvasElement} cv 
    * @param {{side: number, out: number, inw: number}} inopt 
@@ -655,8 +373,9 @@ c.fill();
    * @param {HTMLCanvasElement} cv 
    * @param {boolean} isouter 外側
    * @param {boolean} isinner 内側
+   * @param {string} innerColor 内色
    */
-  drawChar(cv, isouter, isinner, inside = 64) {
+  drawChar(cv, isouter, isinner, innerColor, inside = 64) {
     console.log('drawChar', inside);
     let w = inside * 8;
     let h = inside * 8;
@@ -685,6 +404,7 @@ c.fill();
     if (isouter === true && isinner === true) {
       inc = `rgba(0,0,0, 1)`;
     }
+    inc = innerColor;
 
     c.lineCap = 'round';
     c.lineJoin = 'round';
@@ -1496,7 +1216,8 @@ c.fill();
       c.arcTo(x + q, y + q, x+q*2,y+q*1, q*0.5);
       c.arcTo(x + q*3, y + q * 1, x+q*3,y+q*2, q*0.5);
       c.arcTo(x + q*3, y + q*2, x+q*2,y+q*2, q*0.5);
-      c.arcTo(x + q*2, y + q*2, x+q*2,y+q*2.5, q*0.5);
+      //c.arcTo(x + q*2, y + q*2, x+q*2,y+q*2.5, q*0.5); // NOTE: 曲げ
+      c.lineTo(x + q * 2, y + q * 2);
 
       c.moveTo(x+q*2.0,y+q*3);
       c.lineTo(x+q*2.0,y+q*3);
@@ -2116,17 +1837,18 @@ c.fill();
     this.drawChar(cv02, true, false);
     this.drawChar(cv03, false, true);
 
-    this.drawChar(cv05, true, true);
+    this.drawChar(cv05, true, true, 'black', 64);
     this.drawIcon(cv06);
 
     {
-      this.drawChar(cv23, true, true, 48);
+      this.drawChar(cv23, true, true, 'black', 48);
     }
 
     {
       drawCard(window.cv11, 32);
       drawCard2(window.cv11, 32);
-      this.drawChar(window.cv13, true, true, 32);
+      this.drawChar(window.cv12, true, true, 'black', 32);
+      this.drawChar(window.cv13, true, true, '#ff0000', 32);
     }
     
     {
