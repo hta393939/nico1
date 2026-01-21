@@ -40,6 +40,9 @@ function main(param) {
       "assets/font64.png",
       "assets/card64.png",
       "assets/fontred64.png",
+      "assets/fontblack32.png",
+      "assets/fontred32.png",
+      "assets/icon48.png",
     ]
   });
   scene.onLoad.add(() => {
@@ -51,7 +54,39 @@ function main(param) {
 
     const cardFont = Util.card(scene);
 
-    const blockSize = 64;
+    let blockSize = 64;
+    let originPos = {
+      x: 64, y: 64,
+    };
+    let useBlock = {
+      x: 8, y: 4,
+    };
+    if (true) {
+      blockSize = 48;
+      originPos = {
+        x: 32, y: 64,
+      };
+      useBlock = {
+        x: 11, y: 5,
+      };
+    }
+    const _calcBlock = (x, y) => {
+      return {
+        x: Math.floor((x - originPos.x) / blockSize),
+        y: Math.floor((y - originPos.y) / blockSize),
+      }
+    };
+    const _calcPx = (bx, by) => {
+      const ret = {
+        x: bx * blockSize + originPos.x,
+        y: by * blockSize + originPos.y,
+      };
+      ret.cx = ret.x + blockSize * 0.5;
+      ret.cy = ret.y + blockSize * 0.5;
+      return ret;
+    };
+
+
     for (let i = 1; i <= 4; ++i) {
       for (let j = 0; j < 10; ++j) {
         let x = blockSize * j;

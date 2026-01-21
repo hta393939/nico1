@@ -12,6 +12,7 @@ var drawAdded = (canvas) => {
   let w = canvas.width;
   let h = canvas.height;
   const c = canvas.getContext('2d');
+  c.scale(1, 1);
   c.lineCap = 'round';
   c.lineJoin = 'round';
 
@@ -147,4 +148,6 @@ var drawAdded = (canvas) => {
       c.stroke();
     }
   }
+
+  c.resetTransform();
 };
