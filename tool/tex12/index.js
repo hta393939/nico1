@@ -371,10 +371,10 @@ class Misc {
   /**
    * アルファベットつき
    * @param {HTMLCanvasElement} cv 
-   * @param {boolean} outblack 外側が黒
+   * @param {boolean} outwhite 外側が白
    * @param {string} innerColor 塗り色
    */
-  drawChar(cv, outblack, fillColor, inside = 64) {
+  drawChar(cv, outwhite, fillColor, inside = 64) {
     console.log('drawChar', inside);
     let w = inside * 8;
     let h = inside * 8;
@@ -392,14 +392,45 @@ class Misc {
     const q = side / 4;
 
     let out = 14;
+    /** 元のサイズ */
     let outw = 14;
+    /** 元のサイズ */
     let inw = 8;
-    let outc = outblack ? 'black' : `rgba(255,255,255, 1)`;
-    let inc = outblack ? 'white' : `rgba(0,0,0,0)`;
+    let fillw = 6;
+    let outc = outwhite ? `rgba(255,255,255, 1)` : 'black';
+    let inc = outwhite ? 'black' : 'white';
     //let fillc = fillColor;
 
     c.lineCap = 'round';
     c.lineJoin = 'round';
+
+    out = 16;
+    outw = 16;
+    inw = 12;
+    fillw = 8;
+
+    const _draw = () => {
+      c.lineWidth = out;
+      c.strokeStyle = outc;
+      c.stroke();
+
+      c.lineWidth = inw;
+      c.strokeStyle = inc;
+      c.stroke();
+
+      c.lineWidth = fillw;
+      c.strokeStyle = fillColor;
+      c.stroke();
+
+/*
+      c.lineWidth = out;
+      c.strokeStyle = outc;
+      c.stroke();
+
+      c.lineWidth = inw;
+      c.strokeStyle = inc;
+      c.stroke(); */
+    };
 
     { // !
       x = side * 1;
@@ -410,12 +441,7 @@ class Misc {
       c.lineTo(x + q*2, y + q*3);
       c.moveTo(x + q*2, y + q);
       c.lineTo(x + q*2, y + q*2);
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     { // "
       x = side * 2;
@@ -426,12 +452,7 @@ class Misc {
       c.lineTo(x + q*1.5, y + q*1.5);
       c.moveTo(x + q*2.5, y + q);
       c.lineTo(x + q*2.5, y + q*1.5);
-      c.lineWidth = outw;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     { // #
       x = side * 3;
@@ -446,12 +467,7 @@ class Misc {
       c.lineTo(x + q*1.5, y + q*3);
       c.moveTo(x + q*2.5, y + q*1);
       c.lineTo(x + q*2.5, y + q*3);
-      c.lineWidth = outw;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     { // $
       x = side * 4;
@@ -469,12 +485,7 @@ class Misc {
       //c.lineTo(x+q*1.5,y+q*3);
       c.moveTo(x+q*2.0,y+q);
       c.lineTo(x+q*2.0,y+q*3);
-      c.lineWidth = outw;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     { // %
       x = side * 5;
@@ -493,12 +504,7 @@ class Misc {
       c.lineTo(x+q*3,y+q*3);
       c.lineTo(x+q*2.5,y+q*3);
       c.lineTo(x+q*2.5,y+q*2.5);
-      c.lineWidth = outw;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     { // &
       x = side * 6;
@@ -514,12 +520,7 @@ class Misc {
       c.arcTo(x+q*1.5,y+q*2, x+q*1.5,y+q*3, q*0.5);
       c.arcTo(x+q*1.5,y+q*3, x+q*2,y+q*3, q*0.5);
       c.arcTo(x+q*3,y+q*3, x+q*3,y+q*2, q);
-      c.lineWidth = outw;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     { // '
       x = side * 7;
@@ -528,12 +529,7 @@ class Misc {
       c.beginPath();
       c.moveTo(x + q*2, y + q);
       c.lineTo(x + q*2, y + q*1.5);
-      c.lineWidth = outw;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // (
@@ -543,12 +539,7 @@ class Misc {
       c.beginPath();
       c.moveTo(x + q*2.5, y + q);
       c.bezierCurveTo(x + q*1.5, y + q*1.25, x+q*1.5,y+q*2.75, x+q*2.5,y+q*3);
-      c.lineWidth = outw;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     { // )
       x = side * 1;
@@ -557,12 +548,7 @@ class Misc {
       c.beginPath();
       c.moveTo(x + q*1.5, y + q);
       c.bezierCurveTo(x + q*2.5, y + q*1.25, x+q*2.5,y+q*2.75, x+q*1.5,y+q*3);
-      c.lineWidth = outw;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     { // *
       x = side * 2;
@@ -573,12 +559,7 @@ class Misc {
       c.lineTo(x + q*2.5, y + q*2.5);
       c.moveTo(x + q*2.5, y + q * 1.5);
       c.lineTo(x + q*1.5, y + q*2.5);
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     { // +
       x = side * 3;
@@ -590,12 +571,7 @@ class Misc {
       c.moveTo(x + q, y + q * 2);
       c.lineTo(x + q*3, y + q*2);
 
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     if (false) { // ,
       x = side * 4;
@@ -620,12 +596,7 @@ class Misc {
       c.lineTo(m, y+q*2.5);
       c.lineTo(m, y + q*3);
 
-      c.lineWidth = outw;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();         
+      _draw();        
     }
     { // -
       x = side * 5;
@@ -635,12 +606,7 @@ class Misc {
       c.moveTo(x + q, y + q * 2);
       c.lineTo(x + q*3, y + q*2);
 
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // .
@@ -651,12 +617,7 @@ class Misc {
       c.moveTo(x + q*2, y + q*3);
       c.lineTo(x + q*2, y + q*3);
 
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     { // /
       x = side * 7;
@@ -666,12 +627,7 @@ class Misc {
         c.moveTo(x + q*3, y + q);
         c.lineTo(x + q*1, y + q*3);
   
-        c.lineWidth = out;
-        c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     if (false) {
@@ -705,12 +661,7 @@ class Misc {
 //            c.moveTo(x + q * 2, y + q * 1.5);
       c.lineTo(x + q * 1.5, y + q * 1.5);
 
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // 2
@@ -725,12 +676,7 @@ class Misc {
         c.lineTo(x + q * 1, y + q * 3);
         c.lineTo(x + q*3, y + q * 3);
 
-        c.lineWidth = out;
-        c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // 3
@@ -745,12 +691,7 @@ class Misc {
       c.moveTo(x + q * 1, y + q * 2);
         c.lineTo(x + q * 3, y + q * 2);
 
-        c.lineWidth = out;
-        c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
     { // 4
       x = side * 4;
@@ -763,12 +704,7 @@ class Misc {
         c.moveTo(x + q * 3, y + q);
         c.lineTo(x + q * 3, y + q * 3);
 
-        c.lineWidth = out;
-        c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // 5
@@ -783,12 +719,7 @@ class Misc {
         c.lineTo(x + q * 3, y + q * 3);
         c.lineTo(x + q, y + q * 3);
 
-        c.lineWidth = out;
-        c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     } // here drawChar()
 
     { // 6
@@ -803,12 +734,7 @@ class Misc {
         c.lineTo(x + q * 3, y + q * 2);
         c.lineTo(x + q, y + q * 2);
 
-        c.lineWidth = out;
-        c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // 7
@@ -821,12 +747,7 @@ class Misc {
         c.lineTo(x + q * 3, y + q);
         c.lineTo(x + q * 3, y + q * 3);
 
-        c.lineWidth = out;
-        c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // 8
@@ -894,12 +815,7 @@ class Misc {
 
       //c.closePath();
 
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // 1
@@ -911,12 +827,7 @@ class Misc {
       c.lineTo(x + q*2, y + q);
       c.arcTo(x+q*2, y+q*1.5, x + q * 1.5, y + q * 1.5, q*0.5);
 
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // 2
@@ -937,13 +848,7 @@ class Misc {
 //            c.lineTo(x+q,y+q*3);
       c.lineTo(x + q*3, y + q * 3); // _
 
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      //c.strokeStyle = 'green';
-      c.stroke();
+      _draw();
     } // here drawNum()
 
     { // 3
@@ -961,12 +866,7 @@ class Misc {
       c.moveTo(x + q * 2.25, y + q * 2); // ここ 2.0
       c.lineTo(x + q * 2.5, y + q * 2);
 
-        c.lineWidth = out;
-        c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // 4
@@ -981,12 +881,7 @@ class Misc {
       c.lineTo(x + q*2.5, y + q*1);
       c.lineTo(x + q * 2.5, y + q * 3);
 
-        c.lineWidth = out;
-        c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // 5
@@ -1001,12 +896,7 @@ class Misc {
         c.arcTo(x + q * 3, y + q * 3, x + q*2.5, y + q*3, q * 0.5);
         c.lineTo(x + q, y + q * 3);
 
-        c.lineWidth = out;
-        c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // 6
@@ -1022,12 +912,7 @@ class Misc {
         c.arcTo(x + q * 3, y + q * 2, x+q*2,y+q*2, q*0.5);
         c.lineTo(x + q, y + q * 2);
 
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
 
       if (false) {
       c.beginPath();
@@ -1048,12 +933,7 @@ class Misc {
       c.lineTo(x + q * 3, y + q);
       c.lineTo(x + q * 2, y + q * 3);
 
-        c.lineWidth = out;
-        c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // 8
@@ -1072,12 +952,8 @@ class Misc {
       c.arcTo(x+q,y+q, x+q*2,y+q, q*0.5);
 
       c.closePath();
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+
+      _draw();
     }
     { // 9 here drawNum()
       x = side * 1;
@@ -1092,12 +968,7 @@ class Misc {
       c.arcTo(x + q * 3, y + q * 3, x + q*2.5, y + q * 3, q*0.5);
       c.lineTo(x+q, y+q*3);
 
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
 
       if (false) {
       c.beginPath();
@@ -1213,12 +1084,7 @@ class Misc {
 
       c.moveTo(x+q*2.0,y+q*3);
       c.lineTo(x+q*2.0,y+q*3);
-      c.lineWidth = out;
-      c.strokeStyle = outc;
-      c.stroke();
-      c.lineWidth = inw;
-      c.strokeStyle = inc;
-      c.stroke();
+      _draw();
     }
 
     { // @ ●
@@ -1231,6 +1097,8 @@ class Misc {
         c.arcTo(x + q, y + q*3, x + q, y + q*2, q); // 左下
         c.arcTo(x + q, y + q, x + q*2, y + q, q);
         c.closePath();
+
+      
         c.lineWidth = outw;
         c.strokeStyle = outc;
         c.stroke();
@@ -1242,6 +1110,8 @@ class Misc {
         c.stroke();
         c.fillStyle = inc;
         c.fill();
+      
+      //_draw();
     }
     { // A
       x = side * 1;
@@ -1826,20 +1696,20 @@ class Misc {
     drawCard(cv01);
     drawCard2(cv01);
 
-    this.drawChar(cv02, true, '');
-    this.drawChar(cv03, false, '');
+    this.drawChar(cv02, true, 'white');
+    this.drawChar(cv03, false, 'white');
 
-    this.drawChar(cv05, true, 'black', 64);
+    this.drawChar(cv05, true, 'white', 64);
     this.drawIcon(cv06);
 
     {
-      this.drawChar(cv23, true, 'black', 48);
+      this.drawChar(cv23, true, 'white', 48);
     }
 
     {
       drawCard(window.cv11, 32);
       drawCard2(window.cv11, 32);
-      this.drawChar(window.cv12, true, 'black', 32);
+      this.drawChar(window.cv12, true, 'white', 32);
       this.drawChar(window.cv13, true, '#ff0000', 32);
     }
     
