@@ -371,11 +371,10 @@ class Misc {
   /**
    * アルファベットつき
    * @param {HTMLCanvasElement} cv 
-   * @param {boolean} isouter 外側
-   * @param {boolean} isinner 内側
-   * @param {string} innerColor 内色
+   * @param {boolean} outblack 外側が黒
+   * @param {string} innerColor 塗り色
    */
-  drawChar(cv, isouter, isinner, innerColor, inside = 64) {
+  drawChar(cv, outblack, fillColor, inside = 64) {
     console.log('drawChar', inside);
     let w = inside * 8;
     let h = inside * 8;
@@ -395,16 +394,9 @@ class Misc {
     let out = 14;
     let outw = 14;
     let inw = 8;
-    let outc = isouter ? `rgba(255,255,255, 1)`: `rgba(0,0,0,0)`;
-    let inc = isinner ? `rgba(255,51,51, 1)` : `rgba(0,0,0,0)`;
-    if (isouter === false) {
-      inc = `rgba(255,255,255, 1)`;
-    }
-
-    if (isouter === true && isinner === true) {
-      inc = `rgba(0,0,0, 1)`;
-    }
-    inc = innerColor;
+    let outc = outblack ? 'black' : `rgba(255,255,255, 1)`;
+    let inc = outblack ? 'white' : `rgba(0,0,0,0)`;
+    //let fillc = fillColor;
 
     c.lineCap = 'round';
     c.lineJoin = 'round';
@@ -1834,21 +1826,21 @@ class Misc {
     drawCard(cv01);
     drawCard2(cv01);
 
-    this.drawChar(cv02, true, false);
-    this.drawChar(cv03, false, true);
+    this.drawChar(cv02, true, '');
+    this.drawChar(cv03, false, '');
 
-    this.drawChar(cv05, true, true, 'black', 64);
+    this.drawChar(cv05, true, 'black', 64);
     this.drawIcon(cv06);
 
     {
-      this.drawChar(cv23, true, true, 'black', 48);
+      this.drawChar(cv23, true, 'black', 48);
     }
 
     {
       drawCard(window.cv11, 32);
       drawCard2(window.cv11, 32);
-      this.drawChar(window.cv12, true, true, 'black', 32);
-      this.drawChar(window.cv13, true, true, '#ff0000', 32);
+      this.drawChar(window.cv12, true, 'black', 32);
+      this.drawChar(window.cv13, true, '#ff0000', 32);
     }
     
     {
