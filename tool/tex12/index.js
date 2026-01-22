@@ -1518,7 +1518,11 @@ class Misc {
     this.drawIcon(cv06);
 
     {
+      drawCard(window.cv22, 48);
+      drawCard2(window.cv22, 48);
+
       this.drawChar(cv23, true, 'white', 48);
+      this.drawChar(cv24, true, 'red', 48);
     }
 
     {
@@ -1526,11 +1530,7 @@ class Misc {
       drawCard2(window.cv11, 32);
       this.drawChar(window.cv12, true, 'white', 32);
       this.drawChar(window.cv13, true, '#ff0000', 32);
-    }
-    
-    {
-      drawCard(window.cv22, 48);
-      drawCard2(window.cv22, 48);
+      this.drawChar(window.cv14, true, '#3333ff', 32);
     }
   }
 
