@@ -99,6 +99,18 @@
 			"width": 512,
 			"height": 512
 		},
+		"assets/opening/title.png": {
+			"type": "image",
+			"path": "assets/opening/title.png",
+			"width": 320,
+			"height": 320
+		},
+		"assets/opening/description.png": {
+			"type": "image",
+			"path": "assets/opening/description.png",
+			"width": 256,
+			"height": 256
+		},
 		"util": {
 			"type": "script",
 			"path": "script/util.js",

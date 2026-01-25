@@ -33,6 +33,38 @@ function main(param) {
   }
   let remainingTime = time - 15;
 
+
+  const openingScene = new g.Scene({
+    game,
+    assetPaths: [
+      "/assets/opening/*",
+    ]
+  });
+  openingScene.onLoad.addOnce(() => {
+    const titleLogo = new g.Sprite({
+      scene: openingScene,
+      src: openingScene.asset.getImage('/assets/opening/title.png'),
+      x: game.width * 0.5, y: game.height * 0.5,
+      anchorX: 0.5, anchorY: 0.5,
+    });
+    openingScene.append(titleLogo);
+    const descriptionLogo = new g.Sprite({
+      scene: openingScene,
+      src: openingScene.asset.getImage('/assets/opening/description.png'),
+      x: game.width * 0.5, y: game.height * 0.5,
+      anchorX: 0.5, anchorY: 0.5,
+    });
+    openingScene.setTimeout(() => {
+      titleLogo.destroy();
+      openingScene.append(descriptionLogo);
+    }, 2000);
+    openingScene.setTimeout(() => {
+      game.replaceScene(scene);
+    }, 6000);
+  });
+  game.pushScene(openingScene);
+
+  /** ゲーム本体 */
   const scene = new g.Scene({
     game,
     // このシーンで利用するアセットのIDを列挙し、シーンに通知します
@@ -173,6 +205,7 @@ function main(param) {
       remainingTime --;
       if (remainingTime <= 0) {
         scene.clearInterval(timer);
+        // TODO: 停止処理
       }
 
       updateTimer();
@@ -284,8 +317,15 @@ function main(param) {
       });
     }
 
+    {
+      updateTimer();
+      _addScore(0);
+    }
     // ここまでゲーム内容を記述します
   });
-  g.game.pushScene(scene);
+
+  if (false) { // TODO: 即本体を呼ぶ場合
+    g.game.pushScene(scene);
+  }
 }
 module.exports = main;
