@@ -16,9 +16,12 @@ class Util {
    * @returns {g.Sprite}
    */
   static char(scene, isRed, code,
-    width, height) {
-    const blockSize = 64;
-    const id = isRed ? 'assets/fontred64.png' : 'assets/font64.png';
+    width, height, insize) {
+    const blockSize = insize;
+    let id = isRed ? 'assets/fontred64.png' : 'assets/font64.png';
+    if (insize === 32) {
+      id = isRed ? 'assets/fontred32' : 'assets/font32.png';
+    }
     const fontAsset = scene.asset.getImageById(id);
     const index = code - 0x20;
     /** @type {SpriteParameterObject} */
@@ -117,10 +120,11 @@ class Util {
     return font;
   }
 
-  static card(scene) {
-    const fontAsset = scene.asset.getImageById('assets/card64.png');
+  static card(scene, insize = 64) {
+    const fontAsset = scene.asset.getImageById(
+      `assets/${insize === 64 ? 'card64.png' : 'icon48.png'}`);
     const map = {};
-    const blockSize = 64;
+    const blockSize = insize;
     const pa = 0;
     const padding = {
       left: pa, top: pa, right: pa, bottom: pa,
@@ -150,9 +154,10 @@ class Util {
   }
 
   /** @param {g.Scene} scene */
-  static emptytouch(scene, inx, iny) {
-    const fontAsset = scene.asset.getImageById('assets/card64.png');
-    const blockSize = 64;
+  static emptytouch(scene, inx, iny, insize = 64) {
+    const fontAsset = scene.asset.getImageById(
+      `assets/${insize === 64 ? 'card64.png' : 'icon48.png'}`);
+    const blockSize = insize;
     const param = {
       scene,
       src: fontAsset,
@@ -289,8 +294,8 @@ class Util {
     const cy = 100;
     let rr = 10.0;
     for (let i = 0; i < 60; ++i) {
-      let x = cx + Math.cos(i) * rr + Math.random();
-      let y = cy + Math.sin(i) * rr + Math.random();
+      let x = cx + Math.cos(i) * rr; // + Math.random();
+      let y = cy + Math.sin(i) * rr; // + Math.random();
       pts.push([x, y]);
     }
     const result = Util.infer(pts);

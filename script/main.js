@@ -52,8 +52,6 @@ function main(param) {
     const shotImageAsset = scene.asset.getImageById("shot");
     const seAudioAsset = scene.asset.getAudioById("se");
 
-    const cardFont = Util.card(scene);
-
     let blockSize = 64;
     let originPos = {
       x: 64, y: 64,
@@ -86,11 +84,11 @@ function main(param) {
       return ret;
     };
 
+    const cardFont = Util.card(scene, blockSize);
 
-    for (let i = 1; i <= 4; ++i) {
-      for (let j = 0; j < 10; ++j) {
-        let x = blockSize * j;
-        let y = blockSize * i;
+    for (let i = 0; i < useBlock.y; ++i) {
+      for (let j = 0; j < useBlock.x; ++j) {
+        let {x, y} = _calcPx(j, i);
         const back = new g.Label({
           x: 0, y: 0, scene,
           text: _bc(0, 1),
@@ -134,7 +132,8 @@ function main(param) {
 
     const fromTop = 4 + 4;
     // 中 48x48 step 36
-    const timePane = Util.multi(scene, false, 36 * 4, fromTop, 48, 48, 36);
+    const timePane = Util.multi(scene,
+      false, 36 * 4, fromTop, 48, 48, 36);
     scene.append(timePane);
     function updateTimer() {
       timePane.tag.update(_pad(remainingTime, 3));
@@ -147,7 +146,8 @@ function main(param) {
       scene.append(label);
     }
 
-    const scorePane = Util.multi(scene, false, 36 * 10, fromTop, 48, 48, 36);
+    const scorePane = Util.multi(scene,
+      false, 36 * 10, fromTop, 48, 48, 36);
     scene.append(scorePane);
     let score = 0;
     /**
@@ -268,7 +268,8 @@ function main(param) {
         {
           const obj = Util.emptytouch(scene,
             event.point.x,
-            event.point.y);
+            event.point.y,
+            blockSize);
           scene.append(obj);
         }
         {

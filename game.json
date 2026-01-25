@@ -45,6 +45,24 @@
 			"width": 512,
 			"height": 512
 		},
+		"assets/fontblack32.png": {
+			"type": "image",
+			"path": "assets/fontblack32.png",
+			"width": 256,
+			"height": 256
+		},
+		"assets/fontred32.png": {
+			"type": "image",
+			"path": "assets/fontred32.png",
+			"width": 256,
+			"height": 256
+		},
+		"assets/icon48.png": {
+			"type": "image",
+			"path": "assets/icon48.png",
+			"width": 384,
+			"height": 384
+		},
 		"assets/card64.png": {
 			"type": "image",
 			"path": "assets/card64.png",
