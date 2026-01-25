@@ -85,10 +85,12 @@ class Util {
    * @returns 
    */
   static font(scene, advance, isRed) {
-    const id = isRed ? 'assets/fontred64.png' : 'assets/font64.png';
+    const blockSize = 64;
+    let col = isRed ? 'red' : 'black';
+    const id = `assets/font${col}${blockSize}.png`;
     const fontAsset = scene.asset.getImageById(id);
     const map = {};
-    const blockSize = 64;
+
     const pa = 4; // 6pxは削りすぎ
     const padding = {
       left: pa, top: pa, right: pa, bottom: pa,

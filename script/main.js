@@ -37,12 +37,16 @@ function main(param) {
     game,
     // このシーンで利用するアセットのIDを列挙し、シーンに通知します
     assetIds: ["player", "shot", "se",
-      "assets/font64.png",
-      "assets/card64.png",
+      "assets/fontblack64.png",
       "assets/fontred64.png",
+      "assets/fontred48.png",
+      "assets/fontblue48.png",
+      "assets/icon64.png",
+      "assets/icon48.png",
       "assets/fontblack32.png",
       "assets/fontred32.png",
-      "assets/icon48.png",
+      "assets/fontwhite32.png",
+      "assets/fontblue32.png"
     ]
   });
   scene.onLoad.add(() => {
