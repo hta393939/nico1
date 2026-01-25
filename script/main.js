@@ -38,15 +38,16 @@ function main(param) {
     // このシーンで利用するアセットのIDを列挙し、シーンに通知します
     assetIds: ["player", "shot", "se",
       "assets/fontblack64.png",
+      "assets/fontwhite64.png",
       "assets/fontred64.png",
       "assets/fontred48.png",
       "assets/fontblue48.png",
-      "assets/icon64.png",
-      "assets/icon48.png",
       "assets/fontblack32.png",
       "assets/fontred32.png",
       "assets/fontwhite32.png",
-      "assets/fontblue32.png"
+      "assets/fontblue32.png",
+      "assets/icon64.png",
+      "assets/icon48.png"
     ]
   });
   scene.onLoad.add(() => {
@@ -140,7 +141,7 @@ function main(param) {
       false, 36 * 4, fromTop, 48, 48, 36);
     scene.append(timePane);
     function updateTimer() {
-      timePane.tag.update(_pad(remainingTime, 3));
+      timePane.tag.update(_pad(remainingTime, 4));
     }
     {
       const label = new g.Label({

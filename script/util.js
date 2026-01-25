@@ -86,7 +86,7 @@ class Util {
    */
   static font(scene, advance, isRed) {
     const blockSize = 64;
-    let col = isRed ? 'red' : 'black';
+    let col = isRed ? 'red' : 'white';
     const id = `assets/font${col}${blockSize}.png`;
     const fontAsset = scene.asset.getImageById(id);
     const map = {};
