@@ -33,7 +33,7 @@
 			"path": "script/main.js",
 			"global": true
 		},
-		"assets/font64.png": {
+		"assets/fontblack64.png": {
 			"type": "image",
 			"path": "assets/font64.png",
 			"width": 512,
@@ -45,9 +45,9 @@
 			"width": 512,
 			"height": 512
 		},
-		"assets/fontblack32.png": {
+		"assets/fontblue32.png": {
 			"type": "image",
-			"path": "assets/fontblack32.png",
+			"path": "assets/fontblue32.png",
 			"width": 256,
 			"height": 256
 		},
@@ -63,9 +63,9 @@
 			"width": 384,
 			"height": 384
 		},
-		"assets/card64.png": {
+		"assets/icon64.png": {
 			"type": "image",
-			"path": "assets/card64.png",
+			"path": "assets/icon64.png",
 			"width": 512,
 			"height": 512
 		},

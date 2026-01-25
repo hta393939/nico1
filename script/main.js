@@ -65,7 +65,7 @@ function main(param) {
         x: 32, y: 64,
       };
       useBlock = {
-        x: 11, y: 5,
+        x: 12, y: 5,
       };
     }
     const _calcBlock = (x, y) => {
@@ -92,7 +92,7 @@ function main(param) {
         const back = new g.Label({
           x: 0, y: 0, scene,
           text: _bc(0, 1),
-          font: cardFont, fontSize: 64,
+          font: cardFont, fontSize: blockSize,
         });
         const card = new g.Pane({
           x, y, scene, tag: {
@@ -226,7 +226,7 @@ function main(param) {
         x: 10,
         y: 200,
         scene,
-        text: `123ABCabc`,
+        text: `1@3ABCabc`,
         font,
         fontSize: 48,
       });
@@ -238,7 +238,7 @@ function main(param) {
       const label = new g.Label({
         x: 64 * 3, y: 64 * 3,
         scene,
-        text: `123ABCabc`,
+        text: `12@ABCabc`,
         font,
         fontSize: 40,
       });

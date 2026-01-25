@@ -18,10 +18,8 @@ class Util {
   static char(scene, isRed, code,
     width, height, insize) {
     const blockSize = insize;
-    let id = isRed ? 'assets/fontred64.png' : 'assets/font64.png';
-    if (insize === 32) {
-      id = isRed ? 'assets/fontred32' : 'assets/font32.png';
-    }
+    let col = 'blue';
+    let id = `assets/font${col}${insize}.png`;
     const fontAsset = scene.asset.getImageById(id);
     const index = code - 0x20;
     /** @type {SpriteParameterObject} */
@@ -68,7 +66,7 @@ class Util {
         let x = 0;
         for (let i = 0; i < _len; ++i) {
             const code = intext.charCodeAt(i);
-            const sp = Util.char(scene, isRed, code, dw, dh);
+            const sp = Util.char(scene, isRed, code, dw, dh, 48);
             sp.x = x;
             pane.append(sp);
             x += step;
