@@ -35,7 +35,7 @@
 		},
 		"assets/fontblack64.png": {
 			"type": "image",
-			"path": "assets/font64.png",
+			"path": "assets/fontblack64.png",
 			"width": 512,
 			"height": 512
 		},
@@ -44,6 +44,18 @@
 			"path": "assets/fontred64.png",
 			"width": 512,
 			"height": 512
+		},
+		"assets/fontblue48.png": {
+			"type": "image",
+			"path": "assets/fontblue48.png",
+			"width": 384,
+			"height": 384
+		},
+		"assets/fontred48.png": {
+			"type": "image",
+			"path": "assets/fontred48.png",
+			"width": 384,
+			"height": 384
 		},
 		"assets/fontblue32.png": {
 			"type": "image",
@@ -54,6 +66,18 @@
 		"assets/fontred32.png": {
 			"type": "image",
 			"path": "assets/fontred32.png",
+			"width": 256,
+			"height": 256
+		},
+		"assets/fontwhite32.png": {
+			"type": "image",
+			"path": "assets/fontwhite32.png",
+			"width": 256,
+			"height": 256
+		},
+		"assets/fontblack32.png": {
+			"type": "image",
+			"path": "assets/fontblack32.png",
 			"width": 256,
 			"height": 256
 		},
