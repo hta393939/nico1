@@ -1076,10 +1076,19 @@ class Misc {
     { // @ 山
       x = side * 0;
       y = side * 4;
+      const rten = q * 0.5;
+      const cxten = x + q * 2 + rten;
+      const cyten = y + q * 2;
       c.beginPath();
-      c.moveTo(x + q*1, y + q * 3);
-      c.lineTo(x+q*2,y+q* 1);
-      c.lineTo(x + q*3, y + q*3);
+      c.moveTo(x + q, y + q);
+      c.lineTo(x + q, y + q * 3);
+
+      c.moveTo(cxten, y + q);
+      c.arcTo(x + q * 3, y + q, x + q * 3, y + q + rten, rten); // 円弧開始点終了点
+      c.arcTo(x + q * 3, y + q * 3, cxten, y + q * 3, rten);
+      c.arcTo(x + q * 2, y + q * 3, x + q * 2, y + q * 3 - rten, rten);
+      c.arcTo(x + q * 2, y + q, cxten, y + q, rten);
+      c.closePath();
 
       _draw();
     }
@@ -1218,7 +1227,8 @@ class Misc {
       y = side * 5;
 
       c.beginPath();
-      c.moveTo(x + q * 3, y + q);
+      c.moveTo(x + q * 2.5, y + q);
+      c.lineTo(x + q * 3, y + q);
       c.arcTo(x + q*3, y + q*3, x+q*2,y+q*3, q);
       c.arcTo(x + q*1, y + q *3, x+q,y+q*2, q);
       _draw();
@@ -1477,14 +1487,25 @@ class Misc {
       _draw();
     }
     { // ^
-      x = side * 6;
-      y = side * 7;
+      if (false) { // 上ハット
+        x = side * 6;
+        y = side * 7;
 
-      c.beginPath();
-      c.moveTo(x + q*1.5, y + q*1.5);
-      c.lineTo(x + q*2, y + q);
-      c.lineTo(x + q*2.5, y + q * 1.5);
-      _draw();
+        c.beginPath();
+        c.moveTo(x + q*1.5, y + q*1.5);
+        c.lineTo(x + q*2, y + q);
+        c.lineTo(x + q*2.5, y + q * 1.5);
+        _draw();
+      } else {
+        x = side * 6;
+        y = side * 7;
+        c.beginPath();
+        c.moveTo(x + q*1, y + q * 3);
+        c.lineTo(x+q*2,y+q* 1);
+        c.lineTo(x + q*3, y + q*3);
+
+        _draw();
+      }
     }
 
     { // _

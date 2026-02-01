@@ -33,6 +33,9 @@ function main(param) {
   }
   let remainingTime = time - 15;
 
+  const random = param.random;
+  const _common = random?.generate();
+  console.log('_common', _common, random);
 
   const openingScene = new g.Scene({
     game,
