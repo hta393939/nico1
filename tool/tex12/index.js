@@ -865,16 +865,24 @@ class Misc {
     { // 3
       x = side * 3;
       y = side * 2;
-
+      // MARK: 3
       c.beginPath();
-      c.moveTo(x + q*1, y + q*1.5);
-      c.arcTo(x+q,y+q, x+q*2,y+q, q*0.5);
+      let cx = 2 - 0.5;
+      c.moveTo(x + q*(cx-0.866 * 0.5), y + q*(1.5-0.5*0.5));
+      let ans = 0.5 / 0.866 * 0.5;
+      //let ans = 0.3;
+      c.arcTo(x + q * (cx-ans), y + q, x + q * 2 , y + q, q * 0.5);
+      //c.lineTo(x + q * 2, y + q);
       c.arcTo(x + q*3, y + q*1, x+q*3,y+q*1.5, q*0.5);
       c.arcTo(x + q*3, y + q*2, x+q*2.5, y+q*2, q*0.5);
       c.arcTo(x+q*3,y+q*2, x+q*3,y+q*2.5, q*0.5);
       c.arcTo(x+q*3,y+q*3, x+q*2.5,y+q*3, q*0.5);
-      c.arcTo(x + q * 1, y + q*3, x+q,y+q*2.5, q*0.5);
-      c.moveTo(x + q * 2.25, y + q * 2); // ここ 2.0
+
+      c.moveTo(x + q*(cx-0.866*0.5), y + q*(2.5+0.5*0.5));
+      c.arcTo(x + q * (cx - ans), y + q * 3, x + q * 2, y + q*3, q * 0.5);
+      c.lineTo(x + q * 2.5, y + q * 3);
+
+      c.moveTo(x + q * 2, y + q * 2); // ここ 2.0
       c.lineTo(x + q * 2.5, y + q * 2);
 
       _draw();
@@ -915,7 +923,7 @@ class Misc {
       y = side * 2;
 
       c.beginPath();
-        c.moveTo(x + q*3, y + q*1);
+        c.moveTo(x + q* 3, y + q*1);
         //c.arcTo(x+q*3,y+q, x+q*2,y+q, q*0.5);
         c.arcTo(x + q, y + q*1, x+q,y+q*1.5, q*0.5);
         c.arcTo(x + q, y + q*3, x+q*2,y+q*3, q*0.5); // 左下
@@ -977,17 +985,12 @@ class Misc {
       c.arcTo(x + q, y + q, x+q*2,y+q, q*0.5);
       c.arcTo(x + q * 3, y + q, x+q*3,y+q*2, q*0.5);
       c.arcTo(x + q * 3, y + q * 3, x + q*2.5, y + q * 3, q*0.5);
-      c.lineTo(x+q, y+q*3);
+      c.lineTo(x+q * 1, y+q*3);
+
+      //c.moveTo(x + q, y + q * 3);
+      //c.lineTo(x + q, y + q * 3);
 
       _draw();
-
-      if (false) {
-      c.beginPath();
-      c.moveTo(x+q*2,y+q*3);
-      c.lineTo(x+q*2,y+q*3);
-      c.strokeStyle = `red`;
-      c.stroke();
-      }
     }
   } // プロポ
 
@@ -1073,7 +1076,7 @@ class Misc {
       _draw();
     }
 
-    { // @ 山
+    { // @ 10
       x = side * 0;
       y = side * 4;
       const rten = q * 0.5;
@@ -1227,10 +1230,21 @@ class Misc {
       y = side * 5;
 
       c.beginPath();
+      c.moveTo(x + q * 3, y + q);
+      c.lineTo(x + q * 2, y + q);
+
       c.moveTo(x + q * 2.5, y + q);
-      c.lineTo(x + q * 3, y + q);
-      c.arcTo(x + q*3, y + q*3, x+q*2,y+q*3, q);
-      c.arcTo(x + q*1, y + q *3, x+q,y+q*2, q);
+      //c.arcTo(x + q * 2.5, y + q * 3, x + q * 2, y + q*3, q * 0.5);
+      //c.arcTo(x + q * 1.5, y + q * 3, x + q * 1.5, y + q * 2.5, q * 0.5);
+
+      c.arcTo(x + q * 2.5, y + q * 3, x + q * 1.5, y + q * 3, q);
+      // (0.5, 0.866) + rate * (0.866, 0.5) = (ans, 1)
+      let rate = (1 - 0.866) / 0.5;
+      let ans = 0.5 + rate * 0.866;
+      console.log('ans', ans);
+      c.arcTo(x + q * (0.5 + ans), y + q * 3,
+        x + q * 1, y + q * (2 + 0.866), q);
+
       _draw();
     }
     { // K
