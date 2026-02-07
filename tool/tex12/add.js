@@ -43,21 +43,61 @@ var drawAdded = (canvas, size) => {
           c.stroke();
           c.fill();
 
+    const leftCol = 'white';
+    let faceCol = 'rgb(255, 128, 0)';
+    faceCol = 'black';
+      // 顔左半分
+      c.beginPath();
+      c.ellipse(x + q * 2, y + q * 2, q, q,
+        0, -Math.PI * 0.5, Math.PI * 0.5,
+      );
+      c.fillStyle = faceCol;
+      c.fill();
+
+      c.beginPath();
+      c.ellipse(x + q * 2, y + q * 2, q, q,
+        0, 0, Math.PI * 2,
+      );
+
           c.lineWidth = 4;
           c.strokeStyle = 'rgb(0,0,0)';
-          //c.strokeStyle = 'white';
           c.stroke();
 
     c.beginPath();
-    const noseR = q * 0.25;
-    c.ellipse(x + q * 2, y + q * 2.5, noseR, noseR, 0, 0, Math.PI * 2);
+    c.rect(x, y, q * 2, q * 4);
+    c.save();
+    c.clip();
+    {
+      c.beginPath();
+      const noseR = q * 0.5;
+      c.ellipse(x + q * 2, y + q * 2, noseR, noseR, 0,
+        Math.PI * 0.5, Math.PI * 0.75);
 
-    c.fillStyle = 'rgb(255,0,0)';
-    c.fill();
+      c.strokeStyle = 'rgb(255,0,0)';
+      c.lineWidth = 4;
+      c.stroke();
+    }
+    c.restore();
 
+    c.beginPath();
+    c.rect(x + q * 2, y, q * 2, q * 4);
+    c.save();
+    c.clip();
+    { // 口左
+      c.beginPath();
+      c.moveTo(x + q * 2, y + q * 2.5);
+      c.lineTo(x + q * 2.25, y + q * 2.5);
+
+      c.strokeStyle = leftCol;
+      c.lineWidth = 4;
+      c.stroke();      
+    }
+    c.restore();
+
+    let cy = y + q * 1.825;
     {
       const cx = x + q * 1.5;
-      const cy = y + q * 2;
+
       c.beginPath();
       c.moveTo(cx - q * 0.25, cy);
       c.lineTo(cx + q * 0.25, cy);
@@ -69,40 +109,17 @@ var drawAdded = (canvas, size) => {
     }
     { // 左目
       c.beginPath();
-      c.ellipse(x + q * 2.5, y + q * 2,
+      c.ellipse(x + q * 2.5, cy,
         q * 0.25, q * 0.25, 0, 0, Math.PI * 2);
 
-      c.fillStyle = 'rgb(0,0,0)';
+      c.fillStyle = leftCol;
       c.fill();    
     }
-
-    /*
-    c.beginPath();
-    c.moveTo(x + q, y + q * 1.5);
-    c.lineTo(x + q, y + q);
-    c.lineTo(x + q * 1.5, y + q * 1.25);
-    c.lineTo(x + q * 2, y + q);
-    c.lineTo(x + q * 2.5, y + q * 1.25);
-    c.lineTo(x + q * 3, y + q);
-    c.lineTo(x + q * 3, y + q * 1.5);
-    c.closePath();
-
-          c.fillStyle = 'rgb(255, 255, 0)';
-
-          c.lineWidth = 8; // 外側
-          c.strokeStyle = 'rgb(255,255,255)';
-          c.stroke();
-          c.fill();
-
-          c.lineWidth = 4;
-          c.strokeStyle = 'rgb(0,0,0)';
-          //c.strokeStyle = 'white';
-          c.stroke();
-    */
   };
 
   const _suit = (i) => {
     const sh = y + q * 2.75;
+    //const sh = y + q * 3;
     switch (i) {
     case 0: // スペード
 
@@ -129,7 +146,7 @@ var drawAdded = (canvas, size) => {
       c.bezierCurveTo(
         x + q * 1.75, y + q * 2.75, // 下
         x + q * 2, y + q * 2.25, // 上
-        x + q * 2, y + q * 2,
+        x + q * 2, y + q * (2 + 0.25),
       ); // 中上
       c.bezierCurveTo(
         x + q * 2, y + q * 2.25, // 上

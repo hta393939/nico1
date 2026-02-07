@@ -1,7 +1,7 @@
 // MIT License (c) 2018 hta393939
 
 /**
- * 
+ * tex12へ移動
  * @param {HTMLCanvasElement} canvas 
  */
 var drawAdded = (canvas) => {
