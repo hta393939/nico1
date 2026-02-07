@@ -190,6 +190,19 @@ c.fill();
           c.strokeStyle = `rgba(255,51,51,1)`;
           c.stroke();
 
+        } else if (k === 9) { // NOTE: 砂時計の上。重複
+
+          c.lineWidth = outw;
+          c.strokeStyle = `rgba(255,255,255,1)`;
+          c.stroke();
+  
+          c.lineWidth = inw;
+          c.strokeStyle = `rgba(0,0,0,1)`;
+          c.stroke();
+
+          c.fillStyle = `rgba(51,51,255, 1)`;
+          c.fill();
+
         } else if (k === 12) { // 時計
           x = ftx;
           y = fty;
@@ -270,8 +283,8 @@ c.fill();
           c.stroke();
           c.fillStyle = `rgba(0,51,255,1)`;
           c.fill();
-        } else if (k === 10 || k === 11 || k === 14 || k === 15) {
-          if (k === 10 || k === 11) {
+        } else if (k === 10 || k === 11) {
+          {
             c.lineWidth = outw;
             c.strokeStyle = `rgba(255,255,255,1)`;
             c.stroke();
@@ -287,7 +300,7 @@ c.fill();
             c.fill();
           }
 
-          c.lineWidth = outw - 4; // NOTE: 星ここか?
+          c.lineWidth = outw - 4; // NOTE: 星
           let rr = 20;
           let cx = ftx + 32;
           let cy = fty + 32 + 1;
@@ -322,7 +335,7 @@ c.fill();
       c.lineCap = 'round';
       for (let i = 0; i < 8; ++i) {
         const ftx = w * i;
-        const fty = h * 4;
+        const fty = h * 5; // NOTE: 高さ
         const cx = ftx + q * 2;
         const cy = fty + q * 2;
         for (let j = 0; j < 8; ++j) {

@@ -10,6 +10,7 @@
  */
 var drawAdded = (canvas, size) => {
   console.log(`drawAdded called`);
+  const suitRow = 4;
   const blockSize = 64;
   const q = blockSize * 0.25;
 
@@ -117,6 +118,37 @@ var drawAdded = (canvas, size) => {
     }
   };
 
+  const _star = () => {
+    let outw = 9;
+    let inw = 5;
+    if (false) {
+      outw = 14;
+      inw = 8;
+    }
+    let ftx = 64 * 7;
+    let fty = 64 * 4;
+
+          c.lineWidth = outw - 4; // NOTE: 星
+          let rr = 20;
+          let cx = ftx + 32;
+          let cy = fty + 32 + 1;
+          c.beginPath();
+          c.moveTo(cx, cy - rr);
+          for (let i = 1; i < 10; i++) {
+            let ang = Math.PI * 2 * i * 1 / 10;
+            let r = (((i & 1) === 0) ? 1 : 0.47) * rr;
+            c.lineTo(Math.sin(ang) * r + cx,
+              cy - r * Math.cos(ang));
+          }
+          c.closePath();
+
+          c.strokeStyle = `rgba(0,0,0,1)`; 
+          c.stroke();
+
+          c.fillStyle = `rgba(255,238,0, 1)`;
+          c.fill();
+  };
+
   const _suit = (i) => {
     const sh = y + q * 2.75;
     //const sh = y + q * 3;
@@ -217,6 +249,11 @@ var drawAdded = (canvas, size) => {
 
       c.fillStyle = 'rgb(0, 255, 0)';
       break;
+
+    case 7:
+      _star();
+      break;
+
     default:
       c.moveTo(x + q, y + q);
       c.lineTo(x + q * 3, y + q);
@@ -229,12 +266,12 @@ var drawAdded = (canvas, size) => {
 
 
 
-  for (let i = 5; i < 8; ++i) {
+  for (let i = 4; i < 8; ++i) {
     for (let j = 0; j < 8; ++j) {
       x = j * blockSize;
       y = i * blockSize;
 
-      if (i === 5) {
+      if (i === suitRow) {
         if (j === 4) {
           _joker();
           continue;
@@ -260,7 +297,7 @@ var drawAdded = (canvas, size) => {
       }
 
       c.beginPath();
-      if (i === 5) {
+      if (i === suitRow) {
         _suit(j);
       }
       c.closePath();

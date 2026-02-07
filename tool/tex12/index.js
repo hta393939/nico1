@@ -1543,8 +1543,11 @@ class Misc {
   init() {
     console.log(`init called`);
 
-    drawCard(cv01);
-    drawCard2(cv01);
+    {
+      drawCard(cv01);
+      drawCard2(cv01);
+      drawAdded(cv01);
+    }
 
     this.drawChar(cv02, true, 'white');
     this.drawChar(cv03, true, 'red');
