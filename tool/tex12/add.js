@@ -118,6 +118,35 @@ var drawAdded = (canvas, size) => {
     }
   };
 
+  /** 設定歯車のつもりだがうまくいってない */
+  const _gear = () => {
+    c.beginPath();
+    const outr = 22;
+    const inr = 12;
+    const cx = x + q * 2;
+    const cy = y + q * 2;
+    c.ellipse(cx, cy, inr, inr,
+      0, 0, Math.PI * 2,
+    );
+    for (let i = 0; i < 6; ++i) {
+      let ang = Math.PI * (i * 2 + 1) / 6;
+      const cs = Math.cos(ang);
+      const sn = Math.sin(ang);
+      c.moveTo(cx + cs * inr, cy + sn * inr);
+      c.lineTo(cx + cs * outr, cy + sn * outr);
+    }
+    c.lineWidth = 14;
+    c.strokeStyle = 'white';
+    c.stroke();
+
+    c.lineWidth = 10;
+    c.strokeStyle = 'black';
+    c.stroke();
+    c.lineWidth = 2;
+    c.strokeStyle = 'white';
+    c.stroke();
+  };
+
   const _star = () => {
     let outw = 9;
     let inw = 5;
@@ -274,6 +303,10 @@ var drawAdded = (canvas, size) => {
       if (i === suitRow) {
         if (j === 4) {
           _joker();
+          continue;
+        }
+        if (j === 6) {
+          _gear();
           continue;
         }
 
