@@ -1370,8 +1370,6 @@ class Misc {
     drawColor(window.cv00);
 
     //drawFire();
-
-    drawAdded(window.cv07);
   }
 
   /**
