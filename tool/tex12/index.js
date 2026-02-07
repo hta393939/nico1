@@ -867,7 +867,7 @@ class Misc {
       y = side * 2;
       // MARK: 3
       c.beginPath();
-      let cx = 2 - 0.5;
+      let cx = 1.5;
       c.moveTo(x + q*(cx-0.866 * 0.5), y + q*(1.5-0.5*0.5));
       let ans = 0.5 / 0.866 * 0.5;
       //let ans = 0.3;
