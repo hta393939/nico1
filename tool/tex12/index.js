@@ -1558,6 +1558,8 @@ class Misc {
       this.drawChar(window.cv12, true, 'white', 32);
       this.drawChar(window.cv13, true, '#ff0000', 32);
       this.drawChar(window.cv14, true, '#3333ff', 32);
+      this.drawChar(window.cv15, true, '#00ff00', 32);
+      this.drawChar(window.cv16, false, '#000000', 32);
     }
 
     {
