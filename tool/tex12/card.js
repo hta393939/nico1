@@ -287,7 +287,7 @@ c.fill();
             c.fill();
           }
 
-          c.lineWidth = outw - 1;
+          c.lineWidth = outw - 4; // NOTE: 星ここか?
           let rr = 20;
           let cx = ftx + 32;
           let cy = fty + 32 + 1;
